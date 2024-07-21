@@ -483,7 +483,7 @@ def download(url, destination):  # type: (str, str) -> Optional[Exception]
         else:
             ctx = None
 
-        urlretrieve_ctx(url, destination, report_progress if not global_non_interactive else None, context=ctx)
+        urlretrieve_ctx(url, destination, None, context=ctx)
         sys.stdout.write('\rDone\n')
         return None
     except Exception as e:
