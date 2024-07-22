@@ -667,7 +667,8 @@ class IDFTool(object):
 
     def get_path_for_version(self, version):  # type: (str) -> str
         assert version in self.versions
-        return os.path.join(self.get_path(), version)
+        return os.path.join(self.get_path()) # remove version from path
+        #return os.path.join(self.get_path(), version)
 
     def get_export_paths(self, version):  # type: (str) -> List[str]
         tool_path = self.get_path_for_version(version)
