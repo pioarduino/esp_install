@@ -1122,6 +1122,7 @@
     {
       "name": "framework-arduinoespressif32",
       "description": "Arduino espressif32 framework",
+      "strip_container_dirs": 1,
       "export_paths": [
         [
           ""
@@ -1153,6 +1154,7 @@
     {
       "name": "framework-arduinoespressif32-libs",
       "description": "Arduino espressif32 framework libraries",
+      "strip_container_dirs": 1,
       "export_paths": [
         [
           ""
