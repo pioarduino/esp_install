@@ -1109,6 +1109,58 @@
           }
         }
       ]
+    },
+    {
+      "name": "framework-arduinoespressif32",
+      "description": "Arduino espressif32 framework",
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "sha256": "b4aa70711293955a9835ad641279dc7cd524aeb405f7d294afa05c2ece7ded45",
+            "size": 23920341,
+            "url": "https://github.com/espressif/arduino-esp32/releases/download/3.0.3/esp32-3.0.3.zip"
+          },
+          "name": "esp32-3.0.3",
+          "status": "recommended"
+        }
+      ]
+    },
+    {
+      "name": "framework-arduinoespressif32-libs",
+      "description": "Arduino espressif32 framework libraries",
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "sha256": "23618328d3cc3d2eabc269196be22af5b2353583d5f6ec14b3ef0cf11e7da7ba",
+            "size": 305530538,
+            "url": "https://github.com/espressif/arduino-esp32/releases/download/3.0.3/esp32-arduino-libs-3.0.3.zip"
+          },
+          "name": "esp32-arduino-libs-3.0.3",
+          "status": "recommended"
+        }
+      ]
     }
   ],
   "version": 1
