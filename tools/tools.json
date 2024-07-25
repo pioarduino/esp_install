@@ -8,6 +8,7 @@
           "bin"
         ]
       ],
+      "strip_container_dirs": 1,
       "export_vars": {},
       "info_url": "https://github.com/espressif/binutils-gdb",
       "install": "always",
@@ -83,6 +84,7 @@
           "bin"
         ]
       ],
+      "strip_container_dirs": 1,
       "export_vars": {},
       "info_url": "https://github.com/espressif/binutils-gdb",
       "install": "always",
@@ -159,6 +161,7 @@
           "bin"
         ]
       ],
+      "strip_container_dirs": 1,
       "export_vars": {},
       "info_url": "https://github.com/espressif/crosstool-NG",
       "install": "always",
@@ -232,6 +235,7 @@
           "bin"
         ]
       ],
+      "strip_container_dirs": 1,
       "export_vars": {},
       "info_url": "https://github.com/espressif/crosstool-NG",
       "install": "always",
@@ -305,6 +309,7 @@
           "bin"
         ]
       ],
+      "strip_container_dirs": 1,
       "export_vars": {},
       "info_url": "https://github.com/espressif/crosstool-NG",
       "install": "always",
@@ -378,6 +383,7 @@
           "bin"
         ]
       ],
+      "strip_container_dirs": 1,
       "export_vars": {},
       "info_url": "https://github.com/espressif/llvm-project",
       "install": "on_request",
@@ -443,6 +449,7 @@
           "bin"
         ]
       ],
+      "strip_container_dirs": 1,
       "export_vars": {},
       "info_url": "https://github.com/espressif/crosstool-NG",
       "install": "always",
@@ -521,6 +528,7 @@
           "bin"
         ]
       ],
+      "strip_container_dirs": 1,
       "export_vars": {},
       "info_url": "https://github.com/espressif/binutils-gdb",
       "install": "always",
@@ -622,7 +630,7 @@
           ]
         }
       ],
-      "strip_container_dirs": 1,
+      "strip_container_dirs": 2,
       "supported_targets": [
         "all"
       ],
@@ -715,6 +723,7 @@
           "bin"
         ]
       ],
+      "strip_container_dirs": 1,
       "export_vars": {
         "OPENOCD_SCRIPTS": "${TOOL_PATH}/openocd-esp32/share/openocd/scripts"
       },
@@ -1113,6 +1122,11 @@
     {
       "name": "framework-arduinoespressif32",
       "description": "Arduino espressif32 framework",
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
       "info_url": "https://github.com/espressif/arduino-esp32",
       "install": "always",
       "license": "LGPL-2.1",
@@ -1139,6 +1153,11 @@
     {
       "name": "framework-arduinoespressif32-libs",
       "description": "Arduino espressif32 framework libraries",
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
       "info_url": "https://github.com/espressif/arduino-esp32",
       "install": "always",
       "license": "LGPL-2.1",
