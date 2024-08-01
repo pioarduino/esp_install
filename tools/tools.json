@@ -1131,7 +1131,6 @@
       "info_url": "https://github.com/espressif/arduino-esp32",
       "install": "always",
       "license": "LGPL-2.1",
-      "is_executable": false,
       "supported_targets": [
         "all"
       ],
@@ -1191,7 +1190,7 @@
         ]
       ],
       "info_url": "https://github.com/espressif/arduino-esp32",
-      "install": "on_request",
+      "install": "always",
       "license": "LGPL-2.1",
       "is_executable": false,
       "supported_targets": [
@@ -1310,7 +1309,7 @@
         ]
       ],
       "info_url": "https://github.com/espressif/arduino-esp32",
-      "install": "on_request",
+      "install": "always",
       "license": "LGPL-2.1",
       "is_executable": false,
       "supported_targets": [
@@ -1362,7 +1361,7 @@
         ]
       ],
       "info_url": "https://github.com/espressif/arduino-esp32",
-      "install": "on_request",
+      "install": "always",
       "license": "LGPL-2.1",
       "is_executable": false,
       "supported_targets": [
