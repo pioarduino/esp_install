@@ -939,6 +939,7 @@
       ]
     },
     {
+      "name": "dfu-util",
       "description": "dfu-util (Device Firmware Upgrade Utilities)",
       "export_paths": [
         [
@@ -949,7 +950,6 @@
       "info_url": "http://dfu-util.sourceforge.net/",
       "install": "never",
       "license": "GPL-2.0-only",
-      "name": "dfu-util",
       "platform_overrides": [
         {
           "install": "always",
@@ -1179,6 +1179,717 @@
             "url": "https://github.com/espressif/arduino-esp32/releases/download/3.0.3/esp32-arduino-libs-3.0.3.zip"
           },
           "name": "esp32-arduino-libs-3.0.3",
+          "status": "recommended"
+        }
+      ]
+    },
+    {
+      "name": "tc-xt-esp32",
+      "description": "toolchain for esp32",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "esp32"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "sha256": "a0eaa63f89688861d8389a6c65f04e13acf04e6713a43be9a5cddfd0489c272b",
+            "size": 460,
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/toolchain-xtensa-esp32.zip"
+          },
+          "name": "toolchain-xtensa-esp32",
+          "status": "recommended"
+        }
+      ]
+    },
+    {
+      "name": "tc-xt-esp32s2",
+      "description": "toolchain for esp32-S2",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "esp32s2"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "sha256": "1bfa66746a563b06b3e62b51749afcc1e3db48bbae5e6685cd5ad990d8476580",
+            "size": 467,
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/toolchain-xtensa-esp32s2.zip"
+          },
+          "name": "toolchain-xtensa-esp32s2",
+          "status": "recommended"
+        }
+      ]
+    },
+    {
+      "name": "tc-xt-esp32s3",
+      "description": "toolchain for esp32-S2",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "esp32s3"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "sha256": "31c5b935c74abb9c6556a7a7a4e3936ef3738031b9fc6639d6cc01497b475fe7",
+            "size": 467,
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/toolchain-xtensa-esp32s3.zip"
+          },
+          "name": "toolchain-xtensa-esp32s3",
+          "status": "recommended"
+        }
+      ]
+    },
+    {
+      "name": "tc-rv32",
+      "description": "toolchain for rv32",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "esp32c2",
+        "esp32c3"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "sha256": "b83a7e34b79a86ee9c90f710734b764ec509f8e12ee3810ca936f452d92671af",
+            "size": 484,
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/toolchain-riscv32-esp.zip"
+          },
+          "name": "toolchain-xtensa-esp32rv32",
+          "status": "recommended"
+        }
+      ]
+    },
+    {
+      "name": "tc-ulp",
+      "description": "toolchain for esp32 ULP",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "sha256": "f6ba698eb1b775e4864a30e6cf0a7289335091e712b2ee57e9b99ac26171450e",
+            "size": 467,
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/toolchain-esp32ulp.zip"
+          },
+          "name": "toolchain-xtensa-esp32ulp",
+          "status": "recommended"
+        }
+      ]
+    },
+    {
+      "name": "tl-xt-gdb",
+      "description": "extensa debugger",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "esp32"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "sha256": "0d8783c4015997481f4254592494afe112cc67e37441ec2d6a24edc2a52d4161",
+            "size": 419,
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/xtensa-esp-elf-gdb.zip"
+          },
+          "name": "xtensa-esp-elf-gdb",
+          "status": "recommended"
+        }
+      ]
+    },
+    {
+      "name": "tl-rv-gdb",
+      "description": "extensa debugger",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "esp32c2",
+        "esp32c3"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "sha256": "c7fa1e49f2ca077c765b4172ede08a4e16cfe1c9a9779260266e7a95a0a15829",
+            "size": 419,
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/riscv32-esp-elf-gdb.zip"
+          },
+          "name": "xtensa-esp-rv-gdb",
+          "status": "recommended"
+        }
+      ]
+    },
+    {
+      "name": "tl-esptool",
+      "description": "esp tool uploader",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/pioarduino/esptool/releases",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "name": "esptool",
+          "status": "recommended",
+          "any": {
+            "url": "https://github.com/pioarduino/esptool/releases/download/v4.7.5/esptool.zip",
+            "size": 460758,
+            "sha256": "e6b17461b55a352f40c3fc38f30ddc1c0fe9dc65e790bd0463b555ac2eee6758"
+          },
+          "linux_x64": {
+            "url": "https://github.com/pioarduino/esptool/releases/download/v4.7.5/esptool-linux-amd64.zip",
+            "size": 83978386,
+            "sha256": "0de13c50df3748ff9a23ffcc4c97aad4eec29fcff5e51be25bcb6e99df5127a9"
+          },
+          "macos": {
+            "url": "https://github.com/pioarduino/esptool/releases/download/v4.7.5/esptool-macos.zip",
+            "size": 41147237,
+            "sha256": "6cff5cd4ea4a48cb6abe36c5b97b7411c5fbe39265bede96f56c4289cc385b7e"
+          },
+          "macos-arm64": {
+            "url": "https://github.com/pioarduino/esptool/releases/download/v4.7.5/esptool-macos-arm.zip",
+            "size": 41147277,
+            "sha256": "a756436bd3463f0a711dff03349955452a7ca701924f781738135c6cb9c9532c"
+          },
+          "win_x64": {
+            "url": "https://github.com/pioarduino/esptool/releases/download/v4.7.5/esptool-win64.zip",
+            "size": 43369561,
+            "sha256": "93cda0b143e0ddfcb5106bb4c126d2761e1074939aa90097957e3e80db2521b0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tl-install",
+      "description": "esp installer",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "sha256": "047ae47847edc572e154e9d91a0a1ce43a4bac752cb949b9c99414b39222f9d4",
+            "size": 50151,
+            "url": "https://github.com/pioarduino/esp_install/releases/download/v1.0.0/esp_install-v1.0.0.zip"
+          },
+          "name": "esptool",
+          "status": "recommended"
+        }
+      ]
+    },
+    {
+      "name": "tl-dfuutil",
+      "description": "esp dfuutil",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "name": "esptool",
+          "status": "recommended",
+          "linux-arm64": {
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-linux_aarch64-1.11.0.tar.gz",
+            "size": 2583515,
+            "sha256": "47878ad4c00aa8d299ed19f3da1cc826d0bdbea124c6f08c1bf9024b7ade2550"
+          },
+          "linux-armel": {
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-linux_armv6l-1.11.0.tar.gz",
+            "size": 2498641,
+            "sha256": "c471c74befb364aace09d2c6f693db3a8deb7caf283121d2e6b5f6061f70d18c"
+          },
+          "linux-i686": {
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-linux_i686-1.11.0.tar.gz",
+            "size": 2507611,
+            "sha256": "a734aa2bbaf7002a4a313e38323e1959911608bc53caa44f676b89066e533528"
+          },
+          "linux_x64": {
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-linux_x86_64-1.11.0.tar.gz",
+            "size": 2264120,
+            "sha256": "12cb463884751c0d5d37616969b7666c203698dc7019aae4f7b5ad76a9564199"
+          },
+          "macos": {
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-darwin_x86_64-1.11.0.tar.gz",
+            "size": 72531,
+            "sha256": "d83a5ee09a9af26a52beb7b199d1785573cee6ea3c7718323c653ca4acaf2d29"
+          },
+          "win_x64": {
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-windows-1.11.0.tar.gz",
+            "size": 570631,
+            "sha256": "9ee0dc64f91bd1a4cc2f1bd7c3fcc8aaea2b0b8a5a27cbe4a627ccec73bcbf88"
+          },
+          "win32": {
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-windows-1.11.0.tar.gz",
+            "size": 570631,
+            "sha256": "9ee0dc64f91bd1a4cc2f1bd7c3fcc8aaea2b0b8a5a27cbe4a627ccec73bcbf88"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tl-openocd",
+      "description": "esp openocd",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "sha256": "3e35efc8d83f0a1da6c7d10974afd8fea788e209995b2e4596fafca067127c35",
+            "size": 448,
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/tool-openocd-esp32.zip"
+          },
+          "name": "esptool",
+          "status": "recommended",
+          "linux_x64": {
+            "url": "https://github.com/pioarduino/registry/raw/main/linux_x64/Arduino3.x/tool-openocd-esp32.zip",
+            "size": 2457071,
+            "sha256": "e79af33656555891a6f2dcc7d321f95965170ecd3a1b0c1e6c0718e1442c6fb4"
+          },
+          "macos_arm64": {
+            "url": "https://github.com/pioarduino/registry/raw/main/macos_arm64/Arduino3.x/tool-openocd-esp32.zip",
+            "size": 2603352,
+            "sha256": "e91ae7bc460543bf3809702ea32c49c874f89fc8df0759df88cbba9717d74bd4"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tl-littlefs320",
+      "description": "esp littlefs320",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "on_request",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "name": "tool-mklittlefs",
+          "status": "recommended",
+          "linux-arm64": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/aarch64-linux-gnu-mklittlefs-05d49dc.tar.gz",
+            "size": 49571,
+            "sha256": "d78c81ba53ad17e0c00092ce964e1f54e80d16b252df1c0316f1da8f5a3334e2"
+          },
+          "linux-armel": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/arm-linux-gnueabihf-mklittlefs-05d49dc.tar.gz",
+            "size": 41639,
+            "sha256": "b1a9221970915eae9a9c2d71fc61725a554bc3e80a4bf4ba89670ff6a10e1619"
+          },
+          "linux_x64": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/x86_64-linux-gnu-mklittlefs-05d49dc.tar.gz",
+            "size": 52068,
+            "sha256": "70d4c8eb9c54221655114ce53c14e4dee255bbb7b4688fdc51bdde8923bb16e5"
+          },
+          "macos_arm64": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/x86_64-apple-darwin14-mklittlefs-05d49dc.tar.gz",
+            "size": 367971,
+            "sha256": "97145d25b1852edbcf4fa17956ed5d5fcfef2f92d57e74d5790c4d9c3a1e23dc"
+          },
+          "win_x64": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/x86_64-w64-mingw32-mklittlefs-05d49dc.zip",
+            "size": 349431,
+            "sha256": "4e191b43759e926effc1ed9304b6cd753ce1703dc66c9900a0e40e5e0e8213ec"
+          },
+          "win32": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/i686-w64-mingw32-mklittlefs-05d49dc.zip",
+            "size": 336505,
+            "sha256": "169568f65fcc12637faff94e3b1273e5ebfa3067f66ab0638a1173bcb719bd71"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tl-littlefs400",
+      "description": "esp littlefs400",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "name": "tool-mklittlefs",
+          "status": "recommended",
+          "linux-arm64": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-linux_aarch64-4.0.0.tar.gz",
+            "size": 50745,
+            "sha256": "d724a75dd3f81f97d0a07c4a57cf3e12d463026c2b41636334d90086d19342fc"
+          },
+          "linux-armel": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-linux_armv6l-4.0.0.tar.gz",
+            "size": 42921,
+            "sha256": "9ba896ae044e683e78ca65b4fc5eaa9becc4c1ecc280ebe73b116e5b6da11893"
+          },
+          "linux_x64": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-linux_x86_64-4.0.0.tar.gz",
+            "size": 53442,
+            "sha256": "22725e233fa10cf31a4d22dbdb805fb2e8ff44f10f1bf8fde40e80cd56556613"
+          },
+          "macos": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-darwin_x86_64-4.0.0.tar.gz",
+            "size": 369043,
+            "sha256": "8ea44dce6300da1bd4902283d6703c303b182b5ced8fa7c9d8320fbe362b9892"
+          },
+          "macos_arm64": {
+            "url": "https://github.com/pioarduino/registry/raw/main/macos_arm64/Arduino3.x/tool-mklittlefs.zip",
+            "size": 368627,
+            "sha256": "224a3a020cc000360975135e0394ed243e4a5083311d1c9b7e42513a7c08267d"
+          },
+          "win_x64": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-windows_amd64-4.0.0.zip",
+            "size": 350154,
+            "sha256": "fb6fef575658432f4edb611f4b1cf002c823ccefc2721e37e87be5a87ea51765"
+          },
+          "win32": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-windows_x86-4.0.0.zip",
+            "size": 337645,
+            "sha256": "0a4298a695970afbe13a7500f50a2a63d3b6d8979498352a61d9bd6ac89512dd"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tl-fatfs",
+      "description": "esp fatfs generator",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "on_request",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "name": "tool-mkfatfs",
+          "status": "recommended",
+          "linux-arm64": {
+            "url": "https://github.com/pioarduino/mkfatfs/releases/download/v2.0.1/tool-mkfatfs-linux_aarch64-2.0.1.tar.gz",
+            "size": 137897,
+            "sha256": "ff858e7bf85d5b60712595b9d7cf89f92a77996a68e555b1ff7db4f9a36203c6"
+          },
+          "linux-armel": {
+            "url": "https://github.com/pioarduino/mkfatfs/releases/download/v2.0.1/tool-mkfatfs-linux_armv7l-2.0.1.tar.gz",
+            "size": 128243,
+            "sha256": "4ddb74dd95c1384a75ab030ae3aa8b454b7c9340708a3ab9362d9ba8a9e409fb"
+          },
+          "linux_x64": {
+            "url": "https://github.com/pioarduino/mkfatfs/releases/download/v2.0.1/tool-mkfatfs-linux_x86_64-2.0.1.tar.gz",
+            "size": 148398,
+            "sha256": "0a3ae8d27639827209bdffdc1428b3cc15761eacac81d7a80cdea64a600c070a"
+          },
+          "macos": {
+            "url": "https://github.com/pioarduino/mkfatfs/releases/download/v2.0.1/tool-mkfatfs-darwin_x86_64-2.0.1.tar.gz",
+            "size": 131602,
+            "sha256": "06b1b833c571aea9e40d73a2d1ccc51935219295964c4d836f2cd79f71580c09"
+          },
+          "win_x64": {
+            "url": "https://github.com/pioarduino/mkfatfs/releases/download/v2.0.1/tool-mkfatfs-windows_amd64-2.0.1.tar.gz",
+            "size": 990582,
+            "sha256": "dc44f9e44b73998250bc0e524318bf443b5785ba15184bcb779bc6a0ff95bd48"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tl-spiffs",
+      "description": "esp spiffs generator",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "on_request",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "name": "tool-mkspiffs",
+          "status": "recommended",
+          "linux-armel": {
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-linux_armv6l-2.230.0.tar.gz",
+            "size": 121446,
+            "sha256": "0eb0bef05f38b46abf63fa2c77f791d120c26a3b2ba665e51e69538f709af941"
+          },
+          "linux-i686": {
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-linux_i686-2.230.0.tar.gz",
+            "size": 145510,
+            "sha256": "aefa88c3c2e2101ed903918c0f60b28b8229d8e743e05ca8fa3163bb0ead0ed4"
+          },
+          "linux_x64": {
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-linux_x86_64-2.230.0.tar.gz",
+            "size": 150516,
+            "sha256": "0d8b3c9be9bd5d1f98a9293e334d7d88b8bcd2b4863a07e3f90a7da9e228425d"
+          },
+          "macos": {
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-darwin_x86_64-2.230.0.tar.gz",
+            "size": 387402,
+            "sha256": "ab58c0b0f881b3b238f85acf6b6e36fea049a7b55ce5f238ea436b154515cdc2"
+          },
+          "win_x64": {
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-windows-2.230.0.tar.gz",
+            "size": 746006,
+            "sha256": "23beaff4ca153f3584119cc835cd76038c7ea7b1d53cbe76ffb32c72a3d55d85"
+          },
+          "win32": {
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-windows-2.230.0.tar.gz",
+            "size": 746006,
+            "sha256": "23beaff4ca153f3584119cc835cd76038c7ea7b1d53cbe76ffb32c72a3d55d85"
+          },
+          "freebsd_amd64": {
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-freebsd_amd64-2.230.0.tar.gz",
+            "size": 286237,
+            "sha256": "f40db718e6d1b8807da34aaf3d13d392ed8285c24a9fca4b4b5a2fbc48147d7f"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tl-cmake",
+      "description": "cmake tool",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "sha256": "2f6737ded4af6af15874bd4880b78f5752aee123b7564c7315224d8ff7b18609",
+            "size": 374,
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/tool-cmake.zip"
+          },
+          "name": "tool-cmake",
+          "status": "recommended"
+        }
+      ]
+    },
+    {
+      "name": "tl-ninja",
+      "description": "ninja tool",
+      "strip_container_dirs": 1,
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/espressif/arduino-esp32",
+      "install": "always",
+      "license": "LGPL-2.1",
+      "is_executable": false,
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "sha256": "78a271693843d994b80f81105a4890e5a2bf88e85c8fb109a816e324041ceda7",
+            "size": 415,
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/tool-ninja.zip"
+          },
+          "name": "tool-ninja",
           "status": "recommended"
         }
       ]
