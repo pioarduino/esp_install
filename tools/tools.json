@@ -1713,17 +1713,27 @@
       "version_regex": "",
       "versions": [
         {
-          "any": {
-            "sha256": "ff3c31a6cff34fca99b54ae40d6e29e1c429219c49c339e428c4aee36ec5a289",
-            "size": 711,
-            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/tool-mkfatfs.zip"
-          },
           "name": "tool-mkfatfs",
           "status": "recommended",
+          "linux-arm64":{
+            "url": "https://github.com/pioarduino/mkfatfs/releases/download/v2.0.1/tool-mkfatfs-linux_aarch64-2.0.1.tar.gz",
+            "rehash": true
+          },
+          "linux-armel":{
+            "url": "https://github.com/pioarduino/mkfatfs/releases/download/v2.0.1/tool-mkfatfs-linux_armv7l-2.0.1.tar.gz",
+            "rehash": true
+          },
+          "linux_x64": {
+            "url": "https://github.com/pioarduino/mkfatfs/releases/download/v2.0.1/tool-mkfatfs-linux_x86_64-2.0.1.tar.gz",
+            "rehash": true
+          },
+          "macos": {
+            "url": "https://github.com/pioarduino/mkfatfs/releases/download/v2.0.1/tool-mkfatfs-darwin_x86_64-2.0.1.tar.gz",
+            "rehash": true
+          },
           "win_x64": {
-            "url": "https://github.com/pioarduino/registry/raw/main/win_x64/Arduino3.x/tool-mkfatfs.zip",
-            "size": 998117,
-            "sha256": "35faf34407e6f041dace561bc7e96a4328586fa27cba45e9504ea4a7e122ebd7"
+            "url": "https://github.com/pioarduino/mkfatfs/releases/download/v2.0.1/tool-mkfatfs-windows_amd64-2.0.1.tar.gz",
+            "rehash": true
           }
         }
       ]
