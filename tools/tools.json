@@ -1584,13 +1584,32 @@
       "version_regex": "",
       "versions": [
         {
-          "any": {
-            "sha256": "152161c0f4de09a618890993157c416aecd3e956ad8aece4faaac15e064e543a",
-            "size": 421,
-            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/tool-mklittlefs_320.zip"
-          },
           "name": "tool-mklittlefs",
-          "status": "recommended"
+          "status": "recommended",
+          "linux-arm64":{
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/aarch64-linux-gnu-mklittlefs-05d49dc.tar.gz",
+            "rehash": true
+          },
+          "linux-armel":{
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/arm-linux-gnueabihf-mklittlefs-05d49dc.tar.gz",
+            "rehash": true
+          },
+          "linux_x64": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/x86_64-linux-gnu-mklittlefs-05d49dc.tar.gz",
+            "rehash": true
+          },
+          "macos_arm64": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/x86_64-apple-darwin14-mklittlefs-05d49dc.tar.gz",
+            "rehash": true
+          },
+          "win_x64": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/x86_64-w64-mingw32-mklittlefs-05d49dc.zip",
+            "rehash": true
+          },
+          "win32":{
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/i686-w64-mingw32-mklittlefs-05d49dc.zip",
+            "rehash": true
+          }
         }
       ]
     },
@@ -1616,27 +1635,35 @@
       "version_regex": "",
       "versions": [
         {
-          "any": {
-            "sha256": "804a452d1927611c38f1990eb30404c295455eebf2cd8594111be044c8df3b6a",
-            "size": 421,
-            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/tool-mklittlefs_400.zip"
-          },
           "name": "tool-mklittlefs",
           "status": "recommended",
+          "linux-arm64":{
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-linux_aarch64-4.0.0.tar.gz",
+            "rehash": true
+          },
+          "linux-armel":{
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-linux_armv6l-4.0.0.tar.gz",
+            "rehash": true
+          },
           "linux_x64": {
-            "url": "https://github.com/pioarduino/registry/raw/main/linux_x64/Arduino3.x/tool-mklittlefs.zip",
-            "size": 52757,
-            "sha256": "b10eea9ad06d7082c31c9502b216f82f98cb8712b586150a26f525eb193e17b4"
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-linux_x86_64-4.0.0.tar.gz",
+            "rehash": true
+          },
+          "macos": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-darwin_x86_64-4.0.0.tar.gz",
+            "rehash": true
           },
           "macos_arm64": {
             "url": "https://github.com/pioarduino/registry/raw/main/macos_arm64/Arduino3.x/tool-mklittlefs.zip",
-            "size": 368627,
-            "sha256": "224a3a020cc000360975135e0394ed243e4a5083311d1c9b7e42513a7c08267d"
+            "rehash": true
           },
           "win_x64": {
-            "url": "https://github.com/pioarduino/registry/raw/main/win_x64/Arduino3.x/tool-mklittlefs.zip",
-            "size": 349746,
-            "sha256": "b56789495553e7b39dc45aa6d2f7e112c03cb34c19ece23d0a4ca15d1157e8ab"
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-windows_amd64-4.0.0.zip",
+            "rehash": true
+          },
+          "win32":{
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-windows_x86-4.0.0.zip",
+            "rehash": true
           }
         }
       ]
