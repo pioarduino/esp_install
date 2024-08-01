@@ -1157,7 +1157,7 @@
             "size": 2507611,
             "sha256": "a734aa2bbaf7002a4a313e38323e1959911608bc53caa44f676b89066e533528"
           },
-          "linux_x64": {
+          "linux-amd64": {
             "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-linux_x86_64-1.11.0.tar.gz",
             "size": 2264120,
             "sha256": "12cb463884751c0d5d37616969b7666c203698dc7019aae4f7b5ad76a9564199"
@@ -1167,7 +1167,12 @@
             "size": 72531,
             "sha256": "d83a5ee09a9af26a52beb7b199d1785573cee6ea3c7718323c653ca4acaf2d29"
           },
-          "win_x64": {
+          "macos-arm64": {
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-darwin_x86_64-1.11.0.tar.gz",
+            "size": 72531,
+            "sha256": "d83a5ee09a9af26a52beb7b199d1785573cee6ea3c7718323c653ca4acaf2d29"
+          },
+          "win64": {
             "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-windows-1.11.0.tar.gz",
             "size": 570631,
             "sha256": "9ee0dc64f91bd1a4cc2f1bd7c3fcc8aaea2b0b8a5a27cbe4a627ccec73bcbf88"
@@ -1214,17 +1219,22 @@
             "size": 41639,
             "sha256": "b1a9221970915eae9a9c2d71fc61725a554bc3e80a4bf4ba89670ff6a10e1619"
           },
-          "linux_x64": {
+          "linux-amd64": {
             "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/x86_64-linux-gnu-mklittlefs-05d49dc.tar.gz",
             "size": 52068,
             "sha256": "70d4c8eb9c54221655114ce53c14e4dee255bbb7b4688fdc51bdde8923bb16e5"
           },
-          "macos_arm64": {
+          "macos": {
             "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/x86_64-apple-darwin14-mklittlefs-05d49dc.tar.gz",
             "size": 367971,
             "sha256": "97145d25b1852edbcf4fa17956ed5d5fcfef2f92d57e74d5790c4d9c3a1e23dc"
           },
-          "win_x64": {
+          "macos-arm64": {
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/x86_64-apple-darwin14-mklittlefs-05d49dc.tar.gz",
+            "size": 367971,
+            "sha256": "97145d25b1852edbcf4fa17956ed5d5fcfef2f92d57e74d5790c4d9c3a1e23dc"
+          },
+          "win64": {
             "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/3.2.0/x86_64-w64-mingw32-mklittlefs-05d49dc.zip",
             "size": 349431,
             "sha256": "4e191b43759e926effc1ed9304b6cd753ce1703dc66c9900a0e40e5e0e8213ec"
@@ -1271,7 +1281,7 @@
             "size": 42921,
             "sha256": "9ba896ae044e683e78ca65b4fc5eaa9becc4c1ecc280ebe73b116e5b6da11893"
           },
-          "linux_x64": {
+          "linux-amd64": {
             "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-linux_x86_64-4.0.0.tar.gz",
             "size": 53442,
             "sha256": "22725e233fa10cf31a4d22dbdb805fb2e8ff44f10f1bf8fde40e80cd56556613"
@@ -1281,12 +1291,12 @@
             "size": 369043,
             "sha256": "8ea44dce6300da1bd4902283d6703c303b182b5ced8fa7c9d8320fbe362b9892"
           },
-          "macos_arm64": {
+          "macos-arm64": {
             "url": "https://github.com/pioarduino/registry/raw/main/macos_arm64/Arduino3.x/tool-mklittlefs.zip",
             "size": 368627,
             "sha256": "224a3a020cc000360975135e0394ed243e4a5083311d1c9b7e42513a7c08267d"
           },
-          "win_x64": {
+          "win64": {
             "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-windows_amd64-4.0.0.zip",
             "size": 350154,
             "sha256": "fb6fef575658432f4edb611f4b1cf002c823ccefc2721e37e87be5a87ea51765"
@@ -1333,7 +1343,7 @@
             "size": 128243,
             "sha256": "4ddb74dd95c1384a75ab030ae3aa8b454b7c9340708a3ab9362d9ba8a9e409fb"
           },
-          "linux_x64": {
+          "linux-amd64": {
             "url": "https://github.com/pioarduino/mkfatfs/releases/download/v2.0.1/tool-mkfatfs-linux_x86_64-2.0.1.tar.gz",
             "size": 148398,
             "sha256": "0a3ae8d27639827209bdffdc1428b3cc15761eacac81d7a80cdea64a600c070a"
@@ -1343,7 +1353,12 @@
             "size": 131602,
             "sha256": "06b1b833c571aea9e40d73a2d1ccc51935219295964c4d836f2cd79f71580c09"
           },
-          "win_x64": {
+          "macos-arm64": {
+            "url": "https://github.com/pioarduino/mkfatfs/releases/download/v2.0.1/tool-mkfatfs-darwin_x86_64-2.0.1.tar.gz",
+            "size": 131602,
+            "sha256": "06b1b833c571aea9e40d73a2d1ccc51935219295964c4d836f2cd79f71580c09"
+          },
+          "win64": {
             "url": "https://github.com/pioarduino/mkfatfs/releases/download/v2.0.1/tool-mkfatfs-windows_amd64-2.0.1.tar.gz",
             "size": 990582,
             "sha256": "dc44f9e44b73998250bc0e524318bf443b5785ba15184bcb779bc6a0ff95bd48"
@@ -1385,7 +1400,7 @@
             "size": 145510,
             "sha256": "aefa88c3c2e2101ed903918c0f60b28b8229d8e743e05ca8fa3163bb0ead0ed4"
           },
-          "linux_x64": {
+          "linux-amd64": {
             "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-linux_x86_64-2.230.0.tar.gz",
             "size": 150516,
             "sha256": "0d8b3c9be9bd5d1f98a9293e334d7d88b8bcd2b4863a07e3f90a7da9e228425d"
@@ -1395,7 +1410,12 @@
             "size": 387402,
             "sha256": "ab58c0b0f881b3b238f85acf6b6e36fea049a7b55ce5f238ea436b154515cdc2"
           },
-          "win_x64": {
+          "macos-arm64": {
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-darwin_x86_64-2.230.0.tar.gz",
+            "size": 387402,
+            "sha256": "ab58c0b0f881b3b238f85acf6b6e36fea049a7b55ce5f238ea436b154515cdc2"
+          },
+          "win64": {
             "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-windows-2.230.0.tar.gz",
             "size": 746006,
             "sha256": "23beaff4ca153f3584119cc835cd76038c7ea7b1d53cbe76ffb32c72a3d55d85"
