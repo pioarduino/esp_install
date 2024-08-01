@@ -1750,17 +1750,35 @@
       "version_regex": "",
       "versions": [
         {
-          "any": {
-            "sha256": "50a4fe44a01dd8589b3708d5252900f001aa6786af6d6dd0cd6be3d889cb7bbe",
-            "size": 714,
-            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/tool-mkspiffs.zip"
-          },
           "name": "tool-mkspiffs",
           "status": "recommended",
+          "linux-armel":{
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-linux_armv6l-2.230.0.tar.gz",
+            "rehash": true
+          },
+          "linux-i686": {
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-linux_i686-2.230.0.tar.gz",
+            "rehash": true
+          },
+          "linux_x64": {
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-linux_x86_64-2.230.0.tar.gz",
+            "rehash": true
+          },
+          "macos": {
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-darwin_x86_64-2.230.0.tar.gz",
+            "rehash": true
+          },
           "win_x64": {
-            "url": "https://github.com/pioarduino/registry/raw/main/win_x64/Arduino3.x/tool-mkspiffs.zip",
-            "size": 749250,
-            "sha256": "46c062d14ddaf8f7950167a17190565c054da143ddaa6a3a5093b8ca3047833a"
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-windows-2.230.0.tar.gz",
+            "rehash": true
+          },
+          "win32":{
+            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-windows-2.230.0.tar.gz",
+            "rehash": true
+          },
+          "freebsd_amd64":{
+            "url":"https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-freebsd_amd64-2.230.0.tar.gz",
+            "rehash": true
           }
         }
       ]
