@@ -1137,7 +1137,7 @@
       "version_cmd": [
         ""
       ],
-      "version_regex": "",
+      "version_regex": "dfu-util ([0-9.]+)",
       "versions": [
         {
           "name": "dfu-util",
@@ -1199,7 +1199,7 @@
       "version_cmd": [
         ""
       ],
-      "version_regex": "",
+      "version_regex": "v([0-9.]+)",
       "versions": [
         {
           "name": "tool-mklittlefs",
@@ -1256,7 +1256,7 @@
       "version_cmd": [
         ""
       ],
-      "version_regex": "",
+      "version_regex": "v([0-9.]+)",
       "versions": [
         {
           "name": "tool-mklittlefs",
@@ -1318,7 +1318,7 @@
       "version_cmd": [
         ""
       ],
-      "version_regex": "",
+      "version_regex": "v([0-9.]+)",
       "versions": [
         {
           "name": "tool-mkfatfs",
@@ -1370,7 +1370,7 @@
       "version_cmd": [
         ""
       ],
-      "version_regex": "",
+      "version_regex": "v([0-9.]+)",
       "versions": [
         {
           "name": "tool-mkspiffs",
