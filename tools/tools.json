@@ -1418,7 +1418,7 @@
           ""
         ]
       ],
-      "info_url": "https://github.com/espressif/arduino-esp32",
+      "info_url": "https://github.com/pioarduino/esptool/releases",
       "install": "always",
       "license": "LGPL-2.1",
       "is_executable": false,
@@ -1431,27 +1431,27 @@
       "version_regex": "",
       "versions": [
         {
-          "any": {
-            "sha256": "e6b17461b55a352f40c3fc38f30ddc1c0fe9dc65e790bd0463b555ac2eee6758",
-            "size": 460758,
-            "url": "https://github.com/pioarduino/esptool/releases/download/v4.7.5/esptool.zip"
-          },
           "name": "esptool",
           "status": "recommended",
-          "linux_x64": {
-            "url": "https://github.com/pioarduino/registry/raw/main/linux_x64/Arduino3.x/tool-esptoolpy.zip",
-            "size": 482991,
-            "sha256": "b1a9816daed6e1f68ec2f17aea3a5ef216be468044ae0e6934f8b730cbe98a52"
+          "any":{
+            "url":"https://github.com/pioarduino/esptool/releases/download/v4.7.5/esptool.zip",
+            "rehash": true
           },
-          "macos_arm64": {
-            "url": "https://github.com/pioarduino/registry/raw/main/macos_arm64/Arduino3.x/tool-esptoolpy.zip",
-            "size": 710993,
-            "sha256": "cbae29f5baf6de5bc3c1a020b3bf2e54b51195426bc2d43e1172feab00538c70"
+          "linux_x64": {
+            "url": "https://github.com/pioarduino/esptool/releases/download/v4.7.5/esptool-linux-amd64.zip",
+            "rehash": true
+          },
+          "macos": {
+            "url": "https://github.com/pioarduino/esptool/releases/download/v4.7.5/esptool-macos.zip",
+            "rehash": true
+          },
+          "macos-arm64": {
+            "url": "https://github.com/pioarduino/esptool/releases/download/v4.7.5/esptool-macos-arm.zip",
+            "rehash": true
           },
           "win_x64": {
-            "url": "https://github.com/pioarduino/registry/raw/main/win_x64/Arduino3.x/tool-esptoolpy.zip",
-            "size": 711144,
-            "sha256": "9a5d10ec86aa89bed71beec190b0863befba381cc23ded864c41c125003b236e"
+            "url": "https://github.com/pioarduino/esptool/releases/download/v4.7.5/esptool-win64.zip",
+            "rehash": true
           }
         }
       ]
