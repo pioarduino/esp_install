@@ -630,7 +630,7 @@
           ]
         }
       ],
-      "strip_container_dirs": 2,
+      "strip_container_dirs": 1,
       "supported_targets": [
         "all"
       ],
@@ -1187,7 +1187,6 @@
     {
       "name": "tl-littlefs320",
       "description": "esp littlefs320",
-      "strip_container_dirs": 1,
       "export_paths": [
         [
           ""
@@ -1249,7 +1248,6 @@
     {
       "name": "tl-littlefs400",
       "description": "esp littlefs400",
-      "strip_container_dirs": 1,
       "export_paths": [
         [
           ""
@@ -1311,7 +1309,6 @@
     {
       "name": "tl-fatfs",
       "description": "esp fatfs generator",
-      "strip_container_dirs": 1,
       "export_paths": [
         [
           ""
@@ -1368,7 +1365,6 @@
     {
       "name": "tl-spiffs",
       "description": "esp spiffs generator",
-      "strip_container_dirs": 1,
       "export_paths": [
         [
           ""
