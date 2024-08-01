@@ -1424,11 +1424,6 @@
             "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-windows-2.230.0.tar.gz",
             "size": 746006,
             "sha256": "23beaff4ca153f3584119cc835cd76038c7ea7b1d53cbe76ffb32c72a3d55d85"
-          },
-          "freebsd_amd64": {
-            "url": "https://github.com/pioarduino/mkspiffs/releases/download/2.230.0/tool-mkspiffs-freebsd_amd64-2.230.0.tar.gz",
-            "size": 286237,
-            "sha256": "f40db718e6d1b8807da34aaf3d13d392ed8285c24a9fca4b4b5a2fbc48147d7f"
           }
         }
       ]
