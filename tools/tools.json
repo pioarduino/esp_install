@@ -1122,7 +1122,6 @@
     {
       "name": "tl-dfuutil",
       "description": "esp dfuutil",
-      "strip_container_dirs": 1,
       "export_paths": [
         [
           ""
