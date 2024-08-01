@@ -939,6 +939,7 @@
       ]
     },
     {
+      "name": "dfu-util",
       "description": "dfu-util (Device Firmware Upgrade Utilities)",
       "export_paths": [
         [
@@ -949,7 +950,6 @@
       "info_url": "http://dfu-util.sourceforge.net/",
       "install": "never",
       "license": "GPL-2.0-only",
-      "name": "dfu-util",
       "platform_overrides": [
         {
           "install": "always",
@@ -1510,13 +1510,36 @@
       "version_regex": "",
       "versions": [
         {
-          "any": {
-            "sha256": "c48c7f126860c47b2baf4040c1f5cf59e23fb3aa593e9e6fb48d97253b183f0a",
-            "size": 746,
-            "url": "https://github.com/pioarduino/esp_install/releases/download/v1.0.0/tool-dfuutil-arduino.zip"
-          },
           "name": "esptool",
-          "status": "recommended"
+          "status": "recommended",
+          "linux-arm64":{
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-linux_aarch64-1.11.0.tar.gz",
+            "rehash": true
+          },
+          "linux-armel":{
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-linux_armv6l-1.11.0.tar.gz",
+            "rehash": true
+          },
+          "linux-i686": {
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-linux_i686-1.11.0.tar.gz",
+            "rehash": true
+          },
+          "linux_x64": {
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-linux_x86_64-1.11.0.tar.gz",
+            "rehash": true
+          },
+          "macos": {
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-darwin_x86_64-1.11.0.tar.gz",
+            "rehash": true
+          },
+          "win_x64": {
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-windows-1.11.0.tar.gz",
+            "rehash": true
+          },
+          "win32":{
+            "url": "https://github.com/pioarduino/dfu-util/releases/download/1.11.0/tool-dfuutil-arduino-windows-1.11.0.tar.gz",
+            "rehash": true
+          }
         }
       ]
     },
