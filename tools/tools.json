@@ -952,7 +952,7 @@
       "license": "GPL-2.0-only",
       "platform_overrides": [
         {
-          "install": "always",
+          "install": "never",
           "platforms": [
             "win64"
           ]
@@ -1195,7 +1195,6 @@
       "info_url": "https://github.com/espressif/arduino-esp32",
       "install": "always",
       "license": "LGPL-2.1",
-      "is_executable": false,
       "supported_targets": [
         "all"
       ],
@@ -1256,7 +1255,6 @@
       "info_url": "https://github.com/espressif/arduino-esp32",
       "install": "always",
       "license": "LGPL-2.1",
-      "is_executable": false,
       "supported_targets": [
         "all"
       ],
@@ -1317,7 +1315,6 @@
       "info_url": "https://github.com/espressif/arduino-esp32",
       "install": "always",
       "license": "LGPL-2.1",
-      "is_executable": false,
       "supported_targets": [
         "all"
       ],
@@ -1373,7 +1370,6 @@
       "info_url": "https://github.com/espressif/arduino-esp32",
       "install": "always",
       "license": "LGPL-2.1",
-      "is_executable": false,
       "supported_targets": [
         "all"
       ],
