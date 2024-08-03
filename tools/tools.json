@@ -13,7 +13,7 @@
       "info_url": "https://github.com/espressif/binutils-gdb",
       "install": "always",
       "license": "GPL-3.0-or-later",
-      "name": "xtensa-esp-elf-gdb",
+      "name": "tl-xt-gdb",
       "supported_targets": [
         "esp32",
         "esp32s2",
@@ -89,7 +89,7 @@
       "info_url": "https://github.com/espressif/binutils-gdb",
       "install": "always",
       "license": "GPL-3.0-or-later",
-      "name": "riscv32-esp-elf-gdb",
+      "name": "tl-rv-gdb",
       "supported_targets": [
         "esp32c3",
         "esp32c2",
@@ -166,7 +166,7 @@
       "info_url": "https://github.com/espressif/crosstool-NG",
       "install": "always",
       "license": "GPL-3.0-with-GCC-exception",
-      "name": "xtensa-esp32-elf",
+      "name": "tc-xt-esp32",
       "supported_targets": [
         "esp32"
       ],
@@ -240,7 +240,7 @@
       "info_url": "https://github.com/espressif/crosstool-NG",
       "install": "always",
       "license": "GPL-3.0-with-GCC-exception",
-      "name": "xtensa-esp32s2-elf",
+      "name": "tc-xt-esp32s2",
       "supported_targets": [
         "esp32s2"
       ],
@@ -314,7 +314,7 @@
       "info_url": "https://github.com/espressif/crosstool-NG",
       "install": "always",
       "license": "GPL-3.0-with-GCC-exception",
-      "name": "xtensa-esp32s3-elf",
+      "name": "tc-xt-esp32s3",
       "supported_targets": [
         "esp32s3"
       ],
@@ -454,7 +454,7 @@
       "info_url": "https://github.com/espressif/crosstool-NG",
       "install": "always",
       "license": "GPL-3.0-with-GCC-exception",
-      "name": "riscv32-esp-elf",
+      "name": "tc-rv32",
       "supported_targets": [
         "esp32s2",
         "esp32s3",
@@ -533,7 +533,7 @@
       "info_url": "https://github.com/espressif/binutils-gdb",
       "install": "always",
       "license": "GPL-3.0-or-later",
-      "name": "esp32ulp-elf",
+      "name": "tc-ulp",
       "supported_targets": [
         "esp32",
         "esp32s2",
@@ -607,7 +607,7 @@
       "info_url": "https://github.com/Kitware/CMake",
       "install": "always",
       "license": "BSD-3-Clause",
-      "name": "cmake",
+      "name": "tl-cmake",
       "platform_overrides": [
         {
           "install": "always",
@@ -730,7 +730,7 @@
       "info_url": "https://github.com/espressif/openocd-esp32",
       "install": "always",
       "license": "GPL-2.0-only",
-      "name": "openocd-esp32",
+      "name": "tl-openocd",
       "platform_overrides": [
         {
           "install": "on_request",
@@ -805,7 +805,7 @@
       "info_url": "https://github.com/ninja-build/ninja",
       "install": "always",
       "license": "Apache-2.0",
-      "name": "ninja",
+      "name": "tl-ninja",
       "platform_overrides": [
         {
           "install": "always",
