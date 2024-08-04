@@ -1437,15 +1437,16 @@
       "version_cmd": [
         ""
       ],
-      "status": "always",
       "version_regex": "",
       "versions": [
         {
           "any": {
-            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/tools.tar.gz",
             "size": 2128,
-            "sha256": "2a52f38cf409656aaa591730358c78cb21516134cabb158187321d213835b9a1"
-          }
+            "sha256": "2a52f38cf409656aaa591730358c78cb21516134cabb158187321d213835b9a1",
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/tools.tar.gz"
+          },
+          "name": "tool-packages",
+          "status": "recommended"
         }
       ]
     }
