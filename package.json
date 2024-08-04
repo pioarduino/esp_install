@@ -1,6 +1,6 @@
 {
     "name": "tool-esp_install",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "description": "espressif installer tool: idf_tools.py",
     "keywords": [
       "tools",
