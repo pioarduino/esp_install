@@ -624,6 +624,7 @@
               "bin"
             ]
           ],
+          "strip_container_dirs": 3,
           "platforms": [
             "macos",
             "macos-arm64"
@@ -1455,4 +1456,3 @@
   ],
   "version": 1
 }
-
