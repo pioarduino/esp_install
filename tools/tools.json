@@ -607,7 +607,7 @@
       "info_url": "https://github.com/Kitware/CMake",
       "install": "always",
       "license": "BSD-3-Clause",
-      "name": "tl-cmake",
+      "name": "tool-cmake",
       "platform_overrides": [
         {
           "install": "always",
@@ -730,7 +730,7 @@
       "info_url": "https://github.com/espressif/openocd-esp32",
       "install": "always",
       "license": "GPL-2.0-only",
-      "name": "tl-openocd",
+      "name": "tool-openocd",
       "platform_overrides": [
         {
           "install": "on_request",
@@ -805,7 +805,7 @@
       "info_url": "https://github.com/ninja-build/ninja",
       "install": "always",
       "license": "Apache-2.0",
-      "name": "tl-ninja",
+      "name": "tool-ninja",
       "platform_overrides": [
         {
           "install": "always",
@@ -1120,7 +1120,7 @@
       ]
     },
     {
-      "name": "tl-dfuutil",
+      "name": "tool-dfuutil",
       "description": "esp dfuutil",
       "export_paths": [
         [
@@ -1185,8 +1185,8 @@
       ]
     },
     {
-      "name": "tl-littlefs320",
-      "description": "esp littlefs320",
+      "name": "tool-mklittlefs",
+      "description": "Tool esp32 mklittlefs FS generator v.3.2.0",
       "export_paths": [
         [
           ""
@@ -1246,8 +1246,8 @@
       ]
     },
     {
-      "name": "tl-littlefs400",
-      "description": "esp littlefs400",
+      "name": "tool-mklittlefs400",
+      "description": "Tool esp32 mklittlefs FS generator v.4.0.0",
       "export_paths": [
         [
           ""
@@ -1307,8 +1307,8 @@
       ]
     },
     {
-      "name": "tl-fatfs",
-      "description": "esp fatfs generator",
+      "name": "tool-mkfatfs",
+      "description": "Tool esp32 fatfs FS generator",
       "export_paths": [
         [
           ""
@@ -1362,8 +1362,8 @@
       ]
     },
     {
-      "name": "tl-spiffs",
-      "description": "esp spiffs generator",
+      "name": "tool-mkspiffs",
+      "description": "Tool esp32 spiffs FS generator",
       "export_paths": [
         [
           ""
@@ -1432,7 +1432,7 @@
       "install": "always",
       "is_executable": false,
       "license": "Apache-2.0",
-      "name": "tl-packages",
+      "name": "tool-packages",
       "supported_targets": [
         "all"
       ],
