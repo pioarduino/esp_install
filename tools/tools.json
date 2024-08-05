@@ -1192,6 +1192,7 @@
           ""
         ]
       ],
+      "strip_container_dirs": 1,
       "info_url": "https://github.com/espressif/arduino-esp32",
       "install": "always",
       "license": "LGPL-2.1",
@@ -1255,6 +1256,7 @@
       "info_url": "https://github.com/espressif/arduino-esp32",
       "install": "always",
       "license": "LGPL-2.1",
+      "strip_container_dirs": 1,
       "supported_targets": [
         "all"
       ],
@@ -1453,3 +1455,4 @@
   ],
   "version": 1
 }
+
