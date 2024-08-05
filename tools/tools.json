@@ -1289,9 +1289,9 @@
             "sha256": "8ea44dce6300da1bd4902283d6703c303b182b5ced8fa7c9d8320fbe362b9892"
           },
           "macos-arm64": {
-            "url": "https://github.com/pioarduino/registry/raw/main/macos_arm64/Arduino3.x/tool-mklittlefs.zip",
-            "size": 368627,
-            "sha256": "224a3a020cc000360975135e0394ed243e4a5083311d1c9b7e42513a7c08267d"
+            "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-darwin_x86_64-4.0.0.tar.gz",
+            "size": 369043,
+            "sha256": "8ea44dce6300da1bd4902283d6703c303b182b5ced8fa7c9d8320fbe362b9892"
           },
           "win64": {
             "url": "https://github.com/pioarduino/mklittlefs_esp32/releases/download/4.0.0/tool-mklittlefs-windows_amd64-4.0.0.zip",
