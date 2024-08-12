@@ -1423,6 +1423,173 @@
       ]
     },
     {
+      "name": "tool-clangtidy",
+      "description": "Tool for static code analysis",
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://clang.llvm.org/extra/clang-tidy/",
+      "install": "always",
+      "license": "Apache-2.0",
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "v([0-9.]+)",
+      "versions": [
+        {
+          "name": "tool-clangtidy",
+          "status": "recommended",
+          "linux-amd64": {
+            "url": "https://github.com/pioarduino/llvm-project/releases/download/18.1.1/tool-clangtidy-linux_x86_64-1.180101.0.tar.gz",
+            "size": 33170461,
+            "sha256": "45268f015f52f1be5ee00c8805eed7d039a058b388804c6af12ac600755beebf"
+          },
+          "macos": {
+            "url": "https://github.com/pioarduino/llvm-project/releases/download/18.1.1/tool-clangtidy-darwin_x86_64-1.180101.0.tar.gz",
+            "size": 23700981,
+            "sha256": "7f0f49e8a3b05ca995b6fc5700b2cf2abaab918e7e60d556430a940cafc382cc"
+          },
+          "macos-arm64": {
+            "url": "https://github.com/pioarduino/llvm-project/releases/download/18.1.1/tool-clangtidy-darwin_x86_64-1.180101.0.tar.gz",
+            "size": 23700981,
+            "sha256": "7f0f49e8a3b05ca995b6fc5700b2cf2abaab918e7e60d556430a940cafc382cc"
+          },
+          "win64": {
+            "url": "https://github.com/pioarduino/llvm-project/releases/download/18.1.1/tool-clangtidy-windows_amd64-1.180101.0.tar.gz",
+            "size": 20393326,
+            "sha256": "e1bc9107d0a1e5ad12affe77174c48048e0aeb327c97fc8878c266a108df50d3"
+          },
+          "win32": {
+            "url": "https://github.com/pioarduino/llvm-project/releases/download/18.1.1/tool-clangtidy-windows_x86-1.150005.0.tar.gz",
+            "size": 17248616,
+            "sha256": "f8d962605231610934edb4bb60b68c5a8b85ae0638588d7bf56dae04b2bc667a"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tool-cppcheck",
+      "description": "Tool for static code analysis",
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://cppcheck.sourceforge.io",
+      "install": "always",
+      "license": "GPL-3.0",
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "v([0-9.]+)",
+      "versions": [
+        {
+          "name": "tool-cppcheck",
+          "status": "recommended",
+          "linux-armel": {
+            "url": "https://github.com/pioarduino/cppcheck/releases/download/2.11.0/tool-cppcheck-linux_armv6l-1.21100.230717.tar.gz",
+            "size": 2395975,
+            "sha256": "0705f906f8d4c0bb2d5803ab60b5efa5558d4d59ed47c4c05f89f93e24fadd6c"
+          },
+          "linux-arm64": {
+            "url": "https://github.com/pioarduino/cppcheck/releases/download/2.11.0/tool-cppcheck-linux_aarch64-1.21100.230717.tar.gz",
+            "size": 2546941,
+            "sha256": "42f593c0da6917ab6e54514280ec4f466df0235fad6db4282e81e56f2af1e21d"
+          },
+          "linux-amd64": {
+            "url": "https://github.com/pioarduino/cppcheck/releases/download/2.11.0/tool-cppcheck-linux_x86_64-1.21100.230717.tar.gz",
+            "size": 2690814,
+            "sha256": "5e424c9514ab830327a2105993ff44ec507393f432c037c8971c6b0df49ad439"
+          },
+          "macos": {
+            "url": "https://github.com/pioarduino/cppcheck/releases/download/2.11.0/tool-cppcheck-darwin_x86_64-1.21100.230717.tar.gz",
+            "size": 2668186,
+            "sha256": "6d643b3f63d07516ea5d88c6ec8cc34db2059662532739107256d4dc5fd1457d"
+          },
+          "macos-arm64": {
+            "url": "https://github.com/pioarduino/cppcheck/releases/download/2.11.0/tool-cppcheck-darwin_x86_64-1.21100.230717.tar.gz",
+            "size": 2668186,
+            "sha256": "6d643b3f63d07516ea5d88c6ec8cc34db2059662532739107256d4dc5fd1457d"
+          },
+          "win64": {
+            "url": "https://github.com/pioarduino/cppcheck/releases/download/2.11.0/tool-cppcheck-windows_amd64-1.21100.230717.tar.gz",
+            "size": 3194735,
+            "sha256": "97875c2bf73aaf5deb66c56d63607397d4b2b36f30d7ec742cfec6c53b07e0d7"
+          }
+        }
+      ]
+    },
+    {
+      "description": "contrib-piohome",
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/pioarduino/registry",
+      "install": "always",
+      "is_executable": false,
+      "license": "Apache-2.0",
+      "name": "contrib-piohome",
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "size": 1031329,
+            "sha256": "8a859a4d21836fdda7fb57bdd564e2d62f610fd5c0aaedff0e65d3217e883255",
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/contrib-piohome-3.4.4.tar.gz"
+          },
+          "name": "contrib-pioremote",
+          "status": "recommended"
+        }
+      ]
+    },
+    {
+      "description": "contrib-pioremote",
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://github.com/pioarduino/registry",
+      "install": "always",
+      "is_executable": false,
+      "license": "Apache-2.0",
+      "name": "contrib-pioremote",
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "",
+      "versions": [
+        {
+          "any": {
+            "size": 1856,
+            "sha256": "ac7c9a350e8ccfc0f174343aecde8f2c9415b58d489741e70c3a5884011705da",
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/contrib-pioremote-1.0.1.tar.gz"
+          },
+          "name": "contrib-pioremote",
+          "status": "recommended"
+        }
+      ]
+    },
+    {
       "description": "tool and toolchain package.json",
       "export_paths": [
         [
