@@ -1528,6 +1528,49 @@
       ]
     },
     {
+      "name": "tool-pvs-studio",
+      "description": "PVS-Studio is a tool for detecting bugs and security weaknesses in the source code of programs, written in C, C++, C# and Java",
+      "export_paths": [
+        [
+          ""
+        ]
+      ],
+      "info_url": "https://www.viva64.com/en/pvs-studio/",
+      "install": "always",
+      "license": "",
+      "supported_targets": [
+        "all"
+      ],
+      "version_cmd": [
+        ""
+      ],
+      "version_regex": "v([0-9.]+)",
+      "versions": [
+        {
+          "linux-amd64": {
+            "url": "https://github.com/pioarduino/pvs-studio-free/releases/download/7.18/tool-pvs-studio-linux_x86_64-7.18.59866.tar.gz",
+            "size": 11134203,
+            "sha256": "7598caec6f33dcb421557bd0728ee1a61b5ddcb4fe04997691c0b9a4324eb44b"
+          },
+          "macos": {
+            "url": "https://github.com/pioarduino/pvs-studio-free/releases/download/7.18/tool-pvs-studio-darwin_x86_64-7.18.59865.tar.gz",
+            "size": 5201315,
+            "sha256": "0690124cb5319f23e1f827f08ebe85b73091df38f95024dde7a625f8e3d94c10"
+          },
+          "macos-arm64": {
+            "url": "https://github.com/pioarduino/pvs-studio-free/releases/download/7.18/tool-pvs-studio-darwin_x86_64-7.18.59865.tar.gz",
+            "size": 5201315,
+            "sha256": "0690124cb5319f23e1f827f08ebe85b73091df38f95024dde7a625f8e3d94c10"
+          },
+          "win64": {
+            "url": "https://github.com/pioarduino/pvs-studio-free/releases/download/7.18/tool-pvs-studio-windows-7.18.59865.tar.gz",
+            "size": 73911483,
+            "sha256": "52491755881605ef6c12c9c3f24d649a096d95e4d37e521e239f694458d1cbfe"
+          }
+        }
+      ]
+    },
+    {
       "description": "contrib-piohome",
       "export_paths": [
         [
