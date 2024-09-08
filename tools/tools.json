@@ -1517,8 +1517,8 @@
       "versions": [
         {
           "any": {
-            "size": 1019,
-            "sha256": "25ee5a4964d308bcd67317dd3942272d3d7ade04b931cd0847d0e0102cefa12d",
+            "size": 1020,
+            "sha256": "630ac8005442ad6e00890b3ed24c2bdfd2392275f3cb0db692108d5c3682184b",
             "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/tools_310.tar.gz"
           },
           "name": "tool-packages",
