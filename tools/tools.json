@@ -1518,9 +1518,9 @@
       "versions": [
         {
           "any": {
-            "size": 1018,
-            "sha256": "702f131c808565ecc52f4c795a58a6c13d1b16c0db26d7dbc6d965da90fb1601",
-            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/tools_310.tar.gz"
+            "size": 1016,
+            "sha256": "17b691698415223b5fc5435555e22b4e4c5f38a1eb12e6fc419f36198b83776f",
+            "url": "https://github.com/pioarduino/registry/releases/download/0.0.1/tools_IDF54.tar.gz"
           },
           "name": "tool-packages",
           "status": "recommended"
