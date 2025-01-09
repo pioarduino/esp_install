@@ -478,6 +478,8 @@ def download(url, destination):  # type: (str, str) -> Optional[Exception]
             # This works around the issue with outdated certificate stores in some installations.
             if site in url:
                 ctx = ssl.create_default_context()
+                ctx.check_hostname = False
+                ctx.verify_mode = ssl.CERT_NONE
                 ctx.load_verify_locations(cadata=cert)
                 break
         else:
