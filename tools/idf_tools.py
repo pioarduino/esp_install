@@ -402,6 +402,12 @@ def _fix_zip_executable_permissions(zip_obj, destination):  # type: (ZipFile, st
     """
     import stat
     
+    # Get list of non-directory files
+    files_in_archive = [info for info in zip_obj.infolist() if not info.is_dir()]
+    
+    # Special case: if there's only one file in the archive, make it executable
+    single_file_archive = len(files_in_archive) == 1
+    
     for zip_info in zip_obj.infolist():
         if zip_info.is_dir():
             continue
@@ -413,37 +419,42 @@ def _fix_zip_executable_permissions(zip_obj, destination):  # type: (ZipFile, st
         # Check if this should be an executable file based on patterns
         should_be_executable = False
         
-        # Common executable patterns
-        executable_patterns = [
-            'bin/',           # Files in bin directories
-            '/bin/',          # Files in any bin subdirectory
-            'libexec/',       # Files in libexec directories
-            '/libexec/',      # Files in any libexec subdirectory
-        ]
-        
-        executable_extensions = [
-            '',               # Files without extension in bin directories
-            '.exe',           # Windows executables
-            '.sh',            # Shell scripts
-            '.py',            # Python scripts
-            '.pl',            # Perl scripts
-        ]
-        
-        # Check if file is in a typical executable directory
-        normalized_path = zip_info.filename.replace('\\', '/')
-        for pattern in executable_patterns:
-            if pattern in normalized_path:
-                # Check if it's likely an executable based on extension or lack thereof
+        # If this is a single-file archive, make it executable
+        if single_file_archive:
+            should_be_executable = True
+            info('Single file in ZIP archive, making executable: {}'.format(zip_info.filename))
+        else:
+            # Common executable patterns
+            executable_patterns = [
+                'bin/',           # Files in bin directories
+                '/bin/',          # Files in any bin subdirectory
+                'libexec/',       # Files in libexec directories
+                '/libexec/',      # Files in any libexec subdirectory
+            ]
+            
+            executable_extensions = [
+                '',               # Files without extension in bin directories
+                '.exe',           # Windows executables
+                '.sh',            # Shell scripts
+                '.py',            # Python scripts
+                '.pl',            # Perl scripts
+            ]
+            
+            # Check if file is in a typical executable directory
+            normalized_path = zip_info.filename.replace('\\', '/')
+            for pattern in executable_patterns:
+                if pattern in normalized_path:
+                    # Check if it's likely an executable based on extension or lack thereof
+                    file_ext = os.path.splitext(zip_info.filename)[1].lower()
+                    if file_ext in executable_extensions or (pattern.endswith('bin/') and not file_ext):
+                        should_be_executable = True
+                        break
+            
+            # Also check for files that have specific executable extensions anywhere
+            if not should_be_executable:
                 file_ext = os.path.splitext(zip_info.filename)[1].lower()
-                if file_ext in executable_extensions or (pattern.endswith('bin/') and not file_ext):
+                if file_ext in ['.sh', '.py', '.pl']:
                     should_be_executable = True
-                    break
-        
-        # Also check for files that have specific executable extensions anywhere
-        if not should_be_executable:
-            file_ext = os.path.splitext(zip_info.filename)[1].lower()
-            if file_ext in ['.sh', '.py', '.pl']:
-                should_be_executable = True
         
         # Apply executable permissions if needed
         if should_be_executable:
