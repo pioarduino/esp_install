@@ -636,7 +636,7 @@ def download(url: str, destination: str) -> Union[None, Exception]:
         else:
             ctx = None
 
-        urlretrieve_ctx(url, destination, report_progress if not g.non_interactive else None, context=ctx)
+        urlretrieve_ctx(url, destination, None, context=ctx)
         sys.stdout.write('\rDone\n')
         return None
     except Exception as e:
@@ -923,7 +923,7 @@ class IDFTool(object):
         Returns path for the tool of given version.
         """
         assert version in self.versions
-        return os.path.join(self.get_path(), version)
+        return os.path.join(self.get_path()) # remove version from path
 
     def get_export_paths(self, version: str) -> List[str]:
         """
@@ -1828,7 +1828,7 @@ def get_idf_version() -> str:
     if idf_version is None:
         try:
             with open(
-                os.path.join(g.idf_path, 'components', 'esp_common', 'include', 'esp_idf_version.h'), encoding='utf-8'
+                os.path.join(g.idf_path, 'esp_idf_version.h'), encoding='utf-8'
             ) as f:
                 m = re.search(
                     r'^#define\s+ESP_IDF_VERSION_MAJOR\s+(\d+).+?^#define\s+ESP_IDF_VERSION_MINOR\s+(\d+)',
