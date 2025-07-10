@@ -394,6 +394,77 @@ def mkdir_p(path):  # type: (str) -> None
             raise
 
 
+def _fix_zip_executable_permissions(zip_obj, destination):  # type: (ZipFile, str) -> None
+    """
+    Fix executable permissions for files extracted from ZIP archives.
+    ZIP archives don't preserve Unix file permissions, so we need to restore them
+    based on common patterns for executable files.
+    """
+    import stat
+    
+    for zip_info in zip_obj.infolist():
+        if zip_info.is_dir():
+            continue
+            
+        file_path = os.path.join(destination, zip_info.filename)
+        if not os.path.exists(file_path):
+            continue
+            
+        # Check if this should be an executable file based on patterns
+        should_be_executable = False
+        
+        # Common executable patterns
+        executable_patterns = [
+            'bin/',           # Files in bin directories
+            '/bin/',          # Files in any bin subdirectory
+            'libexec/',       # Files in libexec directories
+            '/libexec/',      # Files in any libexec subdirectory
+        ]
+        
+        executable_extensions = [
+            '',               # Files without extension in bin directories
+            '.exe',           # Windows executables
+            '.sh',            # Shell scripts
+            '.py',            # Python scripts
+            '.pl',            # Perl scripts
+        ]
+        
+        # Check if file is in a typical executable directory
+        normalized_path = zip_info.filename.replace('\\', '/')
+        for pattern in executable_patterns:
+            if pattern in normalized_path:
+                # Check if it's likely an executable based on extension or lack thereof
+                file_ext = os.path.splitext(zip_info.filename)[1].lower()
+                if file_ext in executable_extensions or (pattern.endswith('bin/') and not file_ext):
+                    should_be_executable = True
+                    break
+        
+        # Also check for files that have specific executable extensions anywhere
+        if not should_be_executable:
+            file_ext = os.path.splitext(zip_info.filename)[1].lower()
+            if file_ext in ['.sh', '.py', '.pl']:
+                should_be_executable = True
+        
+        # Apply executable permissions if needed
+        if should_be_executable:
+            try:
+                current_mode = os.stat(file_path).st_mode
+                # Add execute permission for owner, group, and others if they have read permission
+                new_mode = current_mode
+                if current_mode & stat.S_IRUSR:  # Owner can read
+                    new_mode |= stat.S_IXUSR     # Add execute for owner
+                if current_mode & stat.S_IRGRP:  # Group can read
+                    new_mode |= stat.S_IXGRP     # Add execute for group
+                if current_mode & stat.S_IROTH:  # Others can read
+                    new_mode |= stat.S_IXOTH     # Add execute for others
+                
+                if new_mode != current_mode:
+                    os.chmod(file_path, new_mode)
+                    info('Fixed executable permissions for: {}'.format(zip_info.filename))
+            except OSError as e:
+                warn('Failed to set executable permissions for {}: {}'.format(zip_info.filename, e))
+
+
 def unpack(filename, destination):  # type: (str, str) -> None
     info('Extracting {0} to {1}'.format(filename, destination))
     if filename.endswith(('.tar.gz', '.tgz')):
@@ -411,6 +482,10 @@ def unpack(filename, destination):  # type: (str, str) -> None
         # https://bugs.python.org/issue17153
         destination = str(destination)
     archive_obj.extractall(destination)
+    
+    # Fix executable permissions for ZIP archives (they don't preserve permissions)
+    if filename.endswith('zip'):
+        _fix_zip_executable_permissions(archive_obj, destination)
 
 
 def splittype(url):  # type: (str) -> Tuple[Optional[str], str]
