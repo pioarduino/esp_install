@@ -179,30 +179,6 @@ def info(text: str, f: Optional[IO[str]] = None, *args: str) -> None:
         f.write(f'{text}\n', *args)
 
 
-def print_hints_on_download_error(err: str) -> None:
-    """
-    Prints hint on download error. Tries to specify the message depending on the error.
-    """
-    info('Please make sure you have a working Internet connection.')
-
-    if 'CERTIFICATE' in err:
-        info('Certificate issues are usually caused by an outdated certificate database on your computer.')
-        info('Please check the documentation of your operating system for how to upgrade it.')
-
-        if sys.platform == 'darwin':
-            info('Running "./Install\\ Certificates.command" might be able to fix this issue.')
-
-        info(f'Running "{sys.executable} -m pip install --upgrade certifi" can also resolve this issue in some cases.')
-
-    # Certificate issue on Windows can be hidden under different errors which might be even translated,
-    # e.g. "[WinError -2146881269] ASN1 valor de tag inválido encontrado"
-    if sys.platform == 'win32':
-        info(
-            'By downloading and using the offline installer from https://dl.espressif.com/dl/esp-idf '
-            'you might be able to work around this issue.'
-        )
-
-
 PYTHON_PLATFORM = f'{platform.system()}-{platform.machine()}'
 
 # Identifiers used in tools.json for different platforms.
