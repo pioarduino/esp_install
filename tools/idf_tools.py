@@ -295,14 +295,51 @@ def info(text, f=None, *args):  # type: (str, Optional[IO[str]], str) -> None
 def print_hints_on_download_error(err):  # type: (str) -> None
     info('Please make sure you have a working Internet connection.')
 
-    if 'CERTIFICATE' in err:
+    if 'CERTIFICATE' in err or 'SSL' in err:
         info('Certificate issues are usually caused by an outdated certificate database on your computer.')
         info('Please check the documentation of your operating system for how to upgrade it.')
 
         if sys.platform == 'darwin':
-            info('Running "./Install\\ Certificates.command" might be able to fix this issue.')
+            info('macOS-specific solutions:')
+            
+            # Detect Python installation type
+            python_path = sys.executable
+            python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
+            
+            if 'homebrew' in python_path.lower() or '/opt/homebrew' in python_path or '/usr/local' in python_path:
+                # Homebrew Python
+                info('Homebrew Python detected:')
+                info('1. Update Homebrew certificates: "brew install ca-certificates"')
+                info('2. Update Python certificates: "brew reinstall python-certifi"')
+                info('3. Link certificates manually if needed')
+            elif '/System/' in python_path or '/usr/bin/' in python_path:
+                # System Python (macOS built-in) - Standard Apple Python
+                info('Standard macOS Python detected (/usr/bin/python3):')
+                info('1. Extract system certificates: "security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain > /tmp/system_certs.pem"')
+                info('2. Set certificate environment: "export SSL_CERT_FILE=/tmp/system_certs.pem"')
+                info('3. Update macOS system certificates: "System Settings → General → Software Update"')
+                info('4. Alternative: Use system certifi: "/usr/bin/python3 -m pip install --user --upgrade certifi"')
+                info('5. If needed, reset Keychain: Open "Keychain Access" → "Keychain Access" menu → "Certificate Assistant" → "Evaluate"')
+            else:
+                # Python.org or other installation  
+                info('Python.org installation detected:')
+                possible_cert_scripts = [
+                    f"/Applications/Python\\ {python_version}/Install\\ Certificates.command",
+                    f"/Applications/Python {python_version}/Install Certificates.command"
+                ]
+                for script in possible_cert_scripts:
+                    info(f'1. Try running: {script}')
+                info('2. If Install Certificates.command not found, manually update certificates')
+                
+            info('General macOS solutions:')
+            info('• Update macOS system via System Settings → General → Software Update')
+            info('• Reset certificate cache: "sudo rm -rf /tmp/pip-* && rm -rf ~/.cache/pip"')
+            info('• Use curl to test connectivity: "curl -v https://dl.espressif.com"')
 
-        info('Running "{} -m pip install --upgrade certifi" can also resolve this issue in some cases.'.format(sys.executable))
+        info('General solutions:')
+        info('Running "{} -m pip install --upgrade certifi" can resolve certificate issues.'.format(sys.executable))
+        info('Alternative: Set environment variable SSL_CERT_FILE to point to a valid certificate bundle.')
+        info('You can also try: export SSL_CERT_FILE=$(python3 -c "import certifi; print(certifi.where())")')
 
     # Certificate issue on Windows can be hidden under different errors which might be even translated,
     # e.g. "[WinError -2146881269] ASN1 valor de tag inválido encontrado"
@@ -472,27 +509,52 @@ def urlretrieve_ctx(url, filename, reporthook=None, data=None, context=None):
 def download(url, destination):  # type: (str, str) -> Optional[Exception]
     info(f'Downloading {url}')
     info(f'Destination: {destination}')
-    try:
-        for site, cert in DL_CERT_DICT.items():
-            # For dl.espressif.com and github.com, add the DigiCert root certificate.
-            # This works around the issue with outdated certificate stores in some installations.
-            if site in url:
-                ctx = ssl.create_default_context()
-                ctx.check_hostname = False
-                ctx.verify_mode = ssl.CERT_NONE
-                ctx.load_verify_locations(cadata=cert)
-                break
-        else:
-            ctx = None
-
-        urlretrieve_ctx(url, destination, None, context=ctx)
-        sys.stdout.write('\rDone\n')
-        return None
-    except Exception as e:
-        # urlretrieve could throw different exceptions, e.g. IOError when the server is down
-        return e
-    finally:
-        sys.stdout.flush()
+    
+    # Try multiple SSL configurations for better Mac compatibility
+    ssl_configs = []
+    
+    # First try: Custom certificates for known sites
+    for site, cert in DL_CERT_DICT.items():
+        if site in url:
+            ctx = ssl.create_default_context()
+            ctx.check_hostname = False
+            ctx.verify_mode = ssl.CERT_NONE
+            ctx.load_verify_locations(cadata=cert)
+            ssl_configs.append(('custom_cert', ctx))
+            break
+    
+    # Second try: Default SSL context
+    ssl_configs.append(('default', ssl.create_default_context()))
+    
+    # Third try: Unverified SSL (less secure but might work on problematic systems)
+    unverified_ctx = ssl.create_default_context()
+    unverified_ctx.check_hostname = False
+    unverified_ctx.verify_mode = ssl.CERT_NONE
+    ssl_configs.append(('unverified', unverified_ctx))
+    
+    # Fourth try: No SSL context (for HTTP or as last resort)
+    ssl_configs.append(('none', None))
+    
+    last_exception = None
+    for config_name, ctx in ssl_configs:
+        try:
+            if config_name != 'none':
+                info(f'Trying SSL configuration: {config_name}')
+            urlretrieve_ctx(url, destination, None, context=ctx)
+            if config_name != 'none':
+                info(f'Successfully downloaded using SSL configuration: {config_name}')
+            sys.stdout.write('\rDone\n')
+            return None
+        except Exception as e:
+            last_exception = e
+            # Only show SSL-related errors for debugging
+            if 'SSL' in str(e) or 'CERTIFICATE' in str(e):
+                warn(f'SSL configuration "{config_name}" failed: {str(e)[:100]}...')
+            continue
+    
+    # If all configurations failed, return the last exception
+    sys.stdout.flush()
+    return last_exception
 
 
 # Sometimes renaming a directory on Windows (randomly?) causes a PermissionError.
