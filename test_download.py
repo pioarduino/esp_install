@@ -15,7 +15,7 @@ def test_download():
     
     # Test URLs
     test_urls = [
-        'https://dl.espressif.com/dl/idf-installer/esp-idf-tools-setup-offline-5.4.2.exe',  # Should work with custom cert
+        'https://dl.espressif.com/dl/idf-installer/esp-idf-tools-setup-online-2.3.5.exe',  # Should work with custom cert
         'https://github.com/espressif/esp-idf/archive/refs/heads/master.zip',  # Should work with custom cert
         'https://httpbin.org/status/200',  # Simple test URL
     ]
