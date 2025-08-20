@@ -46,6 +46,8 @@ import sys
 import tarfile
 import tempfile
 import time
+import urllib.parse
+import urllib.request
 from collections import OrderedDict
 from collections import namedtuple
 from json import JSONEncoder
@@ -87,19 +89,22 @@ except ImportError:
     class WindowsError(OSError):  # type: ignore
         pass
 
+from platformio.project.config import ProjectConfig
 
 TOOLS_FILE = 'tools/tools.json'
 TOOLS_SCHEMA_FILE = 'tools/tools_schema.json'
 TOOLS_FILE_NEW = 'tools/tools.new.json'
 IDF_ENV_FILE = 'idf-env.json'
 TOOLS_FILE_VERSION = 3
-IDF_TOOLS_PATH_DEFAULT = os.path.join('~', '.platformio')
+PROJECT_CORE_DIR=ProjectConfig.get_instance().get("platformio", "core_dir")
+IDF_TOOLS_PATH=os.path.join(PROJECT_CORE_DIR)
+IDF_TOOLS_PATH_DEFAULT = IDF_TOOLS_PATH
 UNKNOWN_VERSION = 'unknown'
 SUBST_TOOL_PATH_REGEX = re.compile(r'\${TOOL_PATH}')
 VERSION_REGEX_REPLACE_DEFAULT = r'\1'
 IDF_MAINTAINER = os.environ.get('IDF_MAINTAINER') or False
 TODO_MESSAGE = 'TODO'
-DOWNLOAD_RETRY_COUNT = 3
+DOWNLOAD_RETRY_COUNT = 5
 URL_PREFIX_MAP_SEPARATOR = ','
 IDF_TOOLS_INSTALL_CMD = os.environ.get('IDF_TOOLS_INSTALL_CMD')
 IDF_TOOLS_EXPORT_CMD = os.environ.get('IDF_TOOLS_INSTALL_CMD')
@@ -460,6 +465,126 @@ MrY=
 DL_CERT_DICT = {'dl.espressif.com': DIGICERT_ROOT_G2_CERT, 'github.com': DIGICERT_ROOT_CA_CERT}
 
 
+def create_esp_idf_ssl_context(url: str) -> ssl.SSLContext:
+    """
+    Creates ESP-IDF optimized SSL context with OpenSSL version detection.
+    
+    This function detects the SSL backend (LibreSSL vs OpenSSL) and creates
+    an appropriate SSL context with version-specific optimizations. It also
+    handles custom DigiCert certificates for known domains.
+    
+    Args:
+        url: The URL to create SSL context for
+        
+    Returns:
+        Configured SSL context optimized for the detected backend
+    """
+    ssl_version = ssl.OPENSSL_VERSION
+    ssl_version_info = ssl.OPENSSL_VERSION_INFO
+    
+    info(f"SSL Backend: {ssl_version} ({ssl_version_info})")
+    
+    # Create context based on detected SSL backend version
+    if "LibreSSL" in ssl_version:
+        # macOS LibreSSL - more conservative settings
+        ctx = ssl.create_default_context()
+        ctx.set_ciphers('ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:!aNULL:!MD5:!DSS')
+        ctx.check_hostname = True
+        ctx.verify_mode = ssl.CERT_REQUIRED
+        info("LibreSSL-compatible configuration activated")
+        
+    elif ssl_version_info >= (3, 0, 0):
+        # OpenSSL 3.x - use modern features
+        ctx = ssl.create_default_context()
+        ctx.minimum_version = ssl.TLSVersion.TLSv1_2
+        if hasattr(ssl, 'TLSVersion') and hasattr(ssl.TLSVersion, 'TLSv1_3'):
+            ctx.maximum_version = ssl.TLSVersion.TLSv1_3
+        info("OpenSSL 3.x modern configuration activated")
+        
+    elif ssl_version_info >= (1, 1, 1):
+        # OpenSSL 1.1.1+ - proven configuration
+        ctx = ssl.create_default_context()
+        ctx.minimum_version = ssl.TLSVersion.TLSv1_2
+        info("OpenSSL 1.1.1+ standard configuration activated")
+        
+    else:
+        # Legacy OpenSSL - basic functionality
+        warn("Outdated OpenSSL version detected, using legacy mode")
+        ctx = ssl.create_default_context()
+        ctx.options |= ssl.OP_NO_SSLv2 | ssl.OP_NO_SSLv3
+    
+    # ESP-IDF DigiCert Certificate Handling
+    parsed_url = urllib.parse.urlparse(url)
+    domain = parsed_url.netloc.lower()
+    
+    if domain in DL_CERT_DICT:
+        cert_data = DL_CERT_DICT[domain]
+        ctx.load_verify_locations(cadata=cert_data)
+        # Disable hostname checking for custom certificates
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_REQUIRED
+        info(f"✓ Custom DigiCert certificate loaded for {domain}")
+    
+    return ctx
+
+
+def get_ssl_fallback_contexts(url: str) -> List[Tuple[str, ssl.SSLContext]]:
+    """
+    Creates fallback SSL contexts for different scenarios.
+    
+    This function provides multiple SSL context configurations that are tried
+    in order when downloading fails. This approach maximizes compatibility
+    across different systems and SSL configurations.
+    
+    Args:
+        url: The URL to create contexts for
+        
+    Returns:
+        List of tuples containing (config_name, ssl_context) pairs
+    """
+    contexts = []
+    
+    # 1. Primary context with backend detection
+    try:
+        primary_ctx = create_esp_idf_ssl_context(url)
+        contexts.append(('esp_idf_optimized', primary_ctx))
+    except Exception as e:
+        warn(f"Primary SSL context failed: {e}")
+    
+    # 2. Standard context with custom certificates
+    try:
+        standard_ctx = ssl.create_default_context()
+        parsed_url = urllib.parse.urlparse(url)
+        domain = parsed_url.netloc.lower()
+        
+        if domain in DL_CERT_DICT:
+            cert_data = DL_CERT_DICT[domain]
+            standard_ctx.load_verify_locations(cadata=cert_data)
+            standard_ctx.check_hostname = False
+        
+        contexts.append(('standard_with_custom_cert', standard_ctx))
+    except Exception as e:
+        warn(f"Standard SSL context with custom cert failed: {e}")
+    
+    # 3. System default without modifications
+    try:
+        system_ctx = ssl.create_default_context()
+        contexts.append(('system_default', system_ctx))
+    except Exception as e:
+        warn(f"System default SSL context failed: {e}")
+    
+    # 4. Unverified as last resort
+    try:
+        unverified_ctx = ssl.create_default_context()
+        unverified_ctx.check_hostname = False
+        unverified_ctx.verify_mode = ssl.CERT_NONE
+        contexts.append(('unverified', unverified_ctx))
+    except Exception as e:
+        warn(f"Unverified SSL context failed: {e}")
+    
+    return contexts
+
+
 def run_cmd_check_output(
     cmd: List[str], input_text: Optional[str] = None, extra_paths: Optional[List[str]] = None
 ) -> bytes:
@@ -540,11 +665,53 @@ def get_file_size_sha256(filename: str, block_size: int = 65536) -> Tuple[int, s
 def report_progress(count: int, block_size: int, total_size: int) -> None:
     """
     Prints progress (count * block_size * 100 / total_size) to stdout.
+    
+    Args:
+        count: Number of blocks downloaded
+        block_size: Size of each block in bytes  
+        total_size: Total file size in bytes
     """
-    percent = int(count * block_size * 100 / total_size)
-    percent = min(100, percent)
-    sys.stdout.write('\r%d%%' % percent)
-    sys.stdout.flush()
+    if total_size > 0:
+        percent = int(count * block_size * 100 / total_size)
+        percent = min(100, percent)
+        sys.stdout.write('\r%d%%' % percent)
+        sys.stdout.flush()
+
+def download_file_with_progress(response, destination: str) -> None:
+    """
+    Downloads file from urllib response object with progress display.
+    
+    This function replaces the manual implementation that was in the original
+    urlretrieve_ctx function, providing progress feedback during download.
+    
+    Args:
+        response: urllib response object to read from
+        destination: Local file path to save the downloaded content
+    """
+    with open(destination, 'wb') as f:
+        total_size = int(response.getheader('Content-Length', 0))
+        downloaded = 0
+        block_size = 8192
+        blocknum = 0
+        
+        if total_size > 0:
+            info(f'File size: {total_size} bytes')
+        
+        while True:
+            chunk = response.read(block_size)
+            if not chunk:
+                break
+            f.write(chunk)
+            downloaded += len(chunk)
+            blocknum += 1
+            
+            # Show progress using report_progress() (compatible with original version)
+            if total_size > 0:
+                report_progress(blocknum, block_size, total_size)
+            else:
+                # Fallback for unknown file size
+                sys.stdout.write(f'\r{downloaded} bytes downloaded')
+                sys.stdout.flush()
 
 
 def mkdir_p(path: str) -> None:
@@ -595,12 +762,76 @@ def unpack(filename: str, destination: str) -> None:
 def splittype(url: str) -> Tuple[Optional[str], str]:
     """
     Splits given url into its type (e.g. https, file) and the rest.
+    
+    Args:
+        url: URL to split
+        
+    Returns:
+        Tuple of (scheme, data) where scheme is lowercase protocol name or None
     """
     match = re.match('([^/:]+):(.*)', url, re.DOTALL)
     if match:
         scheme, data = match.groups()
         return scheme.lower(), data
     return None, url
+
+
+def classify_ssl_error(exception: Exception) -> str:
+    """
+    Classifies SSL errors for better debugging output.
+    
+    Args:
+        exception: The exception to classify
+        
+    Returns:
+        String description of the error type
+    """
+    error_msg = str(exception).upper()
+    
+    if 'CERTIFICATE_VERIFY_FAILED' in error_msg:
+        return 'Certificate verification failed'
+    elif 'SSL_HANDSHAKE_FAILURE' in error_msg or 'HANDSHAKE_FAILURE' in error_msg:
+        return 'SSL handshake failure'
+    elif 'TIMEOUT' in error_msg:
+        return 'Connection timeout'
+    elif 'CONNECTION_RESET' in error_msg or 'CONNECTION RESET' in error_msg:
+        return 'Connection reset by peer'
+    elif 'HOSTNAME_MISMATCH' in error_msg:
+        return 'Hostname mismatch'
+    else:
+        return f'Unknown SSL error: {str(exception)[:50]}'
+
+
+def setup_mac_certificate_paths(ctx: ssl.SSLContext) -> ssl.SSLContext:
+    """
+    Add macOS specific certificate paths for better compatibility.
+    
+    This function attempts to load certificates from various macOS-specific
+    paths to improve SSL compatibility, especially with Homebrew installations.
+    
+    Args:
+        ctx: SSL context to enhance with additional certificate paths
+        
+    Returns:
+        Enhanced SSL context with additional certificate paths loaded
+    """
+    mac_cert_paths = [
+        '/System/Library/OpenSSL/certs/cert.pem',           # System OpenSSL
+        '/usr/local/etc/openssl/cert.pem',                  # Homebrew OpenSSL
+        '/opt/homebrew/etc/openssl@3/cert.pem',             # Homebrew M1/M2
+        '/etc/ssl/cert.pem'                                 # Generic Unix
+    ]
+    
+    for cert_path in mac_cert_paths:
+        if os.path.exists(cert_path):
+            try:
+                ctx.load_verify_locations(cert_path)
+                info(f"Loaded certificates from: {cert_path}")
+                break
+            except Exception as e:
+                warn(f"Failed to load {cert_path}: {e}")
+    
+    return ctx
 
 
 def urlretrieve_ctx(
@@ -659,49 +890,69 @@ def urlretrieve_ctx(
 def download(url: str, destination: str) -> Union[None, Exception]:
     """
     Download from given url and save into given destination.
+    
+    This is the new urllib-based implementation with SSL backend detection.
+    It automatically detects the SSL backend (LibreSSL vs OpenSSL) and adapts the
+    SSL configuration accordingly. Multiple fallback contexts are tried to maximize
+    compatibility across different systems, especially macOS.
+    
+    Args:
+        url: URL to download from
+        destination: Local file path to save to
+        
+    Returns:
+        None on success, Exception object on failure
     """
     info(f'Downloading {url}')
     info(f'Destination: {destination}')
-    # Try multiple SSL configurations for better Mac compatibility
-    ssl_configs = []
-    # First try: Custom certificates for known sites
-    for site, cert in DL_CERT_DICT.items():
-        if site in url:
-            ctx = ssl.create_default_context()
-            ctx.check_hostname = False
-            ctx.verify_mode = ssl.CERT_NONE
-            ctx.load_verify_locations(cadata=cert)
-            ssl_configs.append(('custom_cert', ctx))
-            break
-    # Second try: Default SSL context
-    ssl_configs.append(('default', ssl.create_default_context()))
-    # Third try: Unverified SSL (less secure but might work on problematic systems)
-    unverified_ctx = ssl.create_default_context()
-    unverified_ctx.check_hostname = False
-    unverified_ctx.verify_mode = ssl.CERT_NONE
-    ssl_configs.append(('unverified', unverified_ctx))
-    # Fourth try: No SSL context (for HTTP or as last resort)
-    ssl_configs.append(('none', None))
     
+    # Get SSL fallback contexts for robust SSL handling
+    ssl_contexts = get_ssl_fallback_contexts(url)
     last_exception = None
-    for config_name, ctx in ssl_configs:
+    
+    for config_name, ctx in ssl_contexts:
         try:
-            if config_name != 'none':
-                info(f'Trying SSL configuration: {config_name}')
-            urlretrieve_ctx(url, destination, None, context=ctx)
-            if config_name != 'none':
-                info(f'Successfully downloaded using SSL configuration: {config_name}')
+            info(f'Trying SSL configuration: {config_name}')
+            
+            if url.startswith('https'):
+                # HTTPS with specific SSL context
+                req = urllib.request.Request(url, headers={
+                    'User-Agent': 'pioarduino'
+                })
+                
+                with urllib.request.urlopen(req, context=ctx, timeout=60) as response:
+                    download_file_with_progress(response, destination)
+            
+            elif url.startswith('http'):
+                # HTTP without SSL context
+                urllib.request.urlretrieve(url, destination, report_progress)
+            
+            else:
+                # Other protocols (file://, etc.)
+                urllib.request.urlretrieve(url, destination, report_progress)
+            
+            info(f'Successfully downloaded using SSL configuration: {config_name}')
             sys.stdout.write('\rDone\n')
+            sys.stdout.flush()
             return None
+            
         except Exception as e:
             last_exception = e
-            # Only show SSL-related errors for debugging
-            if 'SSL' in str(e) or 'CERTIFICATE' in str(e):
+            error_msg = str(e).upper()
+            
+            # Detect and log SSL-specific errors
+            if any(keyword in error_msg for keyword in ['SSL', 'CERTIFICATE', 'TLS', 'HANDSHAKE']):
                 warn(f'SSL configuration "{config_name}" failed: {str(e)[:100]}...')
+            elif 'TIMEOUT' in error_msg:
+                warn(f'Timeout with configuration "{config_name}"')
+            else:
+                warn(f'Configuration "{config_name}" failed: {str(e)[:100]}...')
             continue
     
-    # If all configurations failed, return the last exception
+    # If all configurations failed
     sys.stdout.flush()
+    error_msg = f"All SSL configurations failed. Last error: {last_exception}"
+    warn(error_msg)
     return last_exception
 
 
