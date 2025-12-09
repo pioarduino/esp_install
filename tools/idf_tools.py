@@ -676,23 +676,32 @@ def report_progress(count: int, block_size: int, total_size: int) -> None:
         sys.stdout.write('\r%d%%' % percent)
         sys.stdout.flush()
 
-def download_file_with_progress(response, destination: str) -> None:
+def download_file_with_progress(response, destination: str, resume_from: int = 0, expected_total: int = 0) -> None:
     """
     Downloads file from urllib response object with progress display.
     
     This function replaces the manual implementation that was in the original
     urlretrieve_ctx function, providing progress feedback during download.
+    Supports resuming partial downloads.
     
     Args:
         response: urllib response object to read from
         destination: Local file path to save the downloaded content
+        resume_from: Byte offset to resume from (0 for fresh download)
+        expected_total: Expected total file size (for progress display when resuming)
     """
-    with open(destination, 'wb') as f:
-        total_size = int(response.getheader('Content-Length', 0))
-        downloaded = 0
-        block_size = 8192
-        blocknum = 0
-        
+    # Use append mode if resuming, write mode for fresh download
+    mode = 'ab' if resume_from > 0 else 'wb'
+    with open(destination, mode) as f:
+        content_length = int(response.getheader('Content-Length', 0))
+        # When resuming, Content-Length is the remaining bytes, not total
+        total_size = expected_total if expected_total > 0 else content_length
+        downloaded = resume_from
+        block_size = 32768  # 32KB - balance between efficiency and reliability
+        blocknum = downloaded // block_size
+
+        if resume_from > 0:
+            info(f'Resuming download from {resume_from} bytes')
         if total_size > 0:
             info(f'File size: {total_size} bytes')
         
@@ -711,6 +720,13 @@ def download_file_with_progress(response, destination: str) -> None:
                 # Fallback for unknown file size
                 sys.stdout.write(f'\r{downloaded} bytes downloaded')
                 sys.stdout.flush()
+
+    # Check if download was complete - raise exception if truncated
+    if total_size > 0 and downloaded < total_size:
+        raise ContentTooShortError(
+            f'retrieval incomplete: got only {downloaded} out of {total_size} bytes',
+            (destination, None)
+        )
 
 
 def mkdir_p(path: str) -> None:
@@ -886,7 +902,7 @@ def urlretrieve_ctx(
     return result
 
 
-def download(url: str, destination: str) -> Union[None, Exception]:
+def download(url: str, destination: str, is_retry: bool = False) -> Union[None, Exception]:
     """
     Download from given url and save into given destination.
     
@@ -895,9 +911,12 @@ def download(url: str, destination: str) -> Union[None, Exception]:
     SSL configuration accordingly. Multiple fallback contexts are tried to maximize
     compatibility across different systems, especially macOS.
     
+    Supports resuming partial downloads using HTTP Range header.
+
     Args:
         url: URL to download from
         destination: Local file path to save to
+        is_retry: Set to True when retrying after deleting a corrupted file
         
     Returns:
         None on success, Exception object on failure
@@ -905,6 +924,13 @@ def download(url: str, destination: str) -> Union[None, Exception]:
     info(f'Downloading {url}')
     info(f'Destination: {destination}')
     
+    # Check for existing partial download to resume (skip on retry to start fresh)
+    resume_from = 0
+    if not is_retry and os.path.isfile(destination):
+        resume_from = os.path.getsize(destination)
+        if resume_from > 0:
+            info(f'Found partial download ({resume_from} bytes), will attempt to resume')
+
     # Get SSL fallback contexts for robust SSL handling
     ssl_contexts = get_ssl_fallback_contexts(url)
     last_exception = None
@@ -915,12 +941,54 @@ def download(url: str, destination: str) -> Union[None, Exception]:
             
             if url.startswith('https'):
                 # HTTPS with specific SSL context
-                req = urllib.request.Request(url, headers={
-                    'User-Agent': 'pioarduino'
-                })
-                
+                headers = {'User-Agent': 'pioarduino'}
+
+                # Add Range header for resume support
+                if resume_from > 0:
+                    headers['Range'] = f'bytes={resume_from}-'
+
+                req = urllib.request.Request(url, headers=headers)
+
                 with urllib.request.urlopen(req, context=ctx, timeout=60) as response:
-                    download_file_with_progress(response, destination)
+                    # Check if server supports resume (206 Partial Content)
+                    # or if it's sending the full file (200 OK)
+                    if response.status == 206:
+                        # Server supports resume, get total size from Content-Range
+                        content_range = response.getheader('Content-Range', '')
+                        expected_total = 0
+                        if content_range:
+                            # Format: bytes start-end/total
+                            try:
+                                expected_total = int(content_range.split('/')[-1])
+                            except (ValueError, IndexError):
+                                pass
+
+                        # Check if file is already complete or needs restart
+                        if expected_total > 0:
+                            if resume_from == expected_total:
+                                info(f'File already complete ({resume_from} bytes), skipping download')
+                                return None
+                            if resume_from > expected_total:
+                                if is_retry:
+                                    return Exception(f'File still oversized after retry: {destination}')
+                                warn(f'File is oversized ({resume_from} > {expected_total}), restarting download')
+                                return download(url, destination, is_retry=True)
+                        else:
+                            # Server sent 206 but no valid Content-Range - malformed response
+                            if is_retry:
+                                return Exception(f'Server did not provide file size after retry: {destination}')
+                            warn('Server did not provide file size, restarting download')
+                            return download(url, destination, is_retry=True)
+
+                        download_file_with_progress(response, destination, resume_from, expected_total)
+                    elif response.status == 200:
+                        # Server doesn't support resume or sent full file
+                        if resume_from > 0:
+                            info('Server does not support resume, downloading from start')
+                        download_file_with_progress(response, destination)
+                    else:
+                        # Unexpected status, try normal download
+                        download_file_with_progress(response, destination)
             
             elif url.startswith('http'):
                 # HTTP without SSL context
@@ -934,6 +1002,18 @@ def download(url: str, destination: str) -> Union[None, Exception]:
             sys.stdout.write('\rDone\n')
             sys.stdout.flush()
             return None
+
+        except urllib.error.HTTPError as e:
+            # Handle HTTP 416 Range Not Satisfiable - file is corrupt/oversized, restart fresh
+            if e.code == 416 and resume_from > 0:
+                if is_retry:
+                    return Exception(f'Range request failed after retry: {url}')
+                warn('Range request failed (file may be corrupted), restarting download')
+                return download(url, destination, is_retry=True)
+
+            last_exception = e
+            warn(f'Configuration "{config_name}" failed: {str(e)[:100]}...')
+            continue
             
         except Exception as e:
             last_exception = e
