@@ -923,13 +923,6 @@ def download(url: str, destination: str, is_retry: bool = False) -> Union[None, 
     """
     info(f'Downloading {url}')
     info(f'Destination: {destination}')
-    
-    # Check for existing partial download to resume (skip on retry to start fresh)
-    resume_from = 0
-    if not is_retry and os.path.isfile(destination):
-        resume_from = os.path.getsize(destination)
-        if resume_from > 0:
-            info(f'Found partial download ({resume_from} bytes), will attempt to resume')
 
     # Get SSL fallback contexts for robust SSL handling
     ssl_contexts = get_ssl_fallback_contexts(url)
@@ -939,6 +932,13 @@ def download(url: str, destination: str, is_retry: bool = False) -> Union[None, 
         try:
             info(f'Trying SSL configuration: {config_name}')
             
+            # Check for existing partial download to resume (skip on retry to start fresh)
+            resume_from = 0
+            if not is_retry and os.path.isfile(destination):
+                resume_from = os.path.getsize(destination)
+                if resume_from > 0:
+                    info(f'Found partial download ({resume_from} bytes), will attempt to resume')
+
             if url.startswith('https'):
                 # HTTPS with specific SSL context
                 headers = {'User-Agent': 'pioarduino'}
