@@ -251,6 +251,7 @@ PYTHON_PLATFORM = f'{platform.system()}-{platform.machine()}'
 # Identifiers used in tools.json for different platforms.
 PLATFORM_WIN32 = 'win32'
 PLATFORM_WIN64 = 'win64'
+PLATFORM_WIN_ARM64 = 'win-arm64'
 PLATFORM_MACOS = 'macos'
 PLATFORM_MACOS_ARM64 = 'macos-arm64'
 PLATFORM_LINUX32 = 'linux-i686'
@@ -281,7 +282,9 @@ class Platforms:
         'Windows-x86_64': PLATFORM_WIN64,
         'Windows-AMD64': PLATFORM_WIN64,
         'x86_64-w64-mingw32': PLATFORM_WIN64,
-        'Windows-ARM64': PLATFORM_WIN64,
+        PLATFORM_WIN_ARM64: PLATFORM_WIN_ARM64,
+        'Windows-ARM64': PLATFORM_WIN_ARM64,
+        'aarch64-w64-mingw32': PLATFORM_WIN_ARM64,
         # macOS
         PLATFORM_MACOS: PLATFORM_MACOS,
         'osx': PLATFORM_MACOS,
@@ -1175,6 +1178,9 @@ class IDFToolVersion(object):
             platform_name = Platforms.get(platform_name)
             if platform_name in self.downloads.keys():
                 return self.downloads[platform_name]
+            # On Windows ARM64, use win64 (x86_64) build when no native win-arm64 exists
+            if platform_name == PLATFORM_WIN_ARM64 and PLATFORM_WIN64 in self.downloads:
+                return self.downloads[PLATFORM_WIN64]
         # exception can be omitted, as not detected platform is handled without err message
         except ValueError:
             pass
